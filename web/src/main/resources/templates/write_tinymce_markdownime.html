@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JH</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=17882425c3efa2f68788f35c66c012c8">
+    <!--<script type="text/javascript" src="MarkdownIME/dist/MarkdownIME.js"></script>-->
+    <!--<script src="prism/prism.js"></script>-->
+    <script type="text/javascript" src="tinymce_4.9.11/js/tinymce/tinymce.min.js"></script>
+    <style type="text/css">
+        body{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<!--头部-->
+<header class="main-header rainbow">
+    <div class="show">
+        <div class="red"></div>
+        <div class="orange"></div>
+        <div class="yellow"></div>
+        <div class="green"></div>
+        <div class="cyan"></div>
+        <div class="blue"></div>
+        <div class="purple"></div>
+        <div class="red"></div>
+        <div class="orange"></div>
+        <div class="yellow"></div>
+        <div class="green"></div>
+        <div class="cyan"></div>
+        <div class="blue"></div>
+        <div class="purple"></div>
+    </div>
+    <div class="AppHeader-inner">
+        <a href="https://www.liubinbin.top" aria-label="知道"><svg viewBox="0 0 200 91" fill="#0084FF" width="64" height="30">
+            <path d="M53.29 80.035l7.32.002 2.41 8.24 13.128-8.24h15.477v-67.99H53.29v67.978zm7.79-60.598h22.756v53.22h-8.73l-8.718 5.473-1.587-5.46-3467.687-16.12.687-22.-6.97H16.807c1.09-4.1 2.46-8.332 4.1-12.708 0 0-7.523 0-10.085 6.74-1.06 2.78-4.128 13.48-9.592 24.41 1.84-.2 7.927-.37 11.512-6.94.66-1.84.785-2.08 1.605-4.54h9.02c0 3.28-.374 20.9-.526 22.95H6.51c-3.67 0-4.863 7.38-4.863 7.38H22.14C20.765 66.11 13.385 79.24 0 89.62c6.403 1.828 12.784-.29 15.937-3.094 0 0 7.182-6.53 11.12-21.64L43.92 85.18s2.473-8.402-.388-12.496c-2.37-2.788-8.768-10.33-11.496-13.064l-4.57 3.627c1.363-4.368 2.183-8.61 2.46-12.71H49.19s-.027-7.38-2.372-7.38zm128.752-.502c6.51-8.013 14.054-18.302 14.054-18.302s-5.827-4.625-8.556-1.27c-1.874 2.548-11.51 15.063-11.51 15.063l6.012 4.51zm-46.903-18.462c-2.814-2.577-8.096.667-8.096.667s12.35 17.2 12.85 17.953l6.08-4.29s-8.02-11.752-10.83-14.33zM199.99 46.5c-6.18 0-40.908.292-40.953.292v-31.56c1.503 0 3.882-.124 7.14-.376 12.773-.753 21.914-1.25 27.427-1.504 0 0 3.817-8.496-.185-10.45-.96-.37-7.24 1.43-7.24 1.43s-51.63 5.153-72.61 5.64c.5 2.756 2.38 5.336 4.93 6.11 4.16 1.087 7.09.53 15.36.277 7.76-.5 13.65-.76 17.66-.76v31.19h-41.71s.88 6.97 7.97 7.14h33.73v22.16c0 4.364-3.498 6.87-7.65 6.6-4.4.034-8.15-.36-13.027-.566.623 1.24 1.977 4.496 6.035 6.824 3.087 1.502 5.054 2.053 8.13 2.053 9.237 0 14.27-5.4 14.027-14.16V53.93h38.235c3.026 0 2.72-7.432 2.72-7.432z"
+                  fill-rule="evenodd"></path>
+        </svg></a>
+        <ul class="Tabs AppHeader-Tabs">
+            <li role="tab" class="Tabs-item AppHeader-Tab Tabs-item--noMeta"><a
+                    class="Tabs-link AppHeader-TabsLink is-active" href="//www.zhihu.com/"
+                    data-za-not-track-link="true">首页</a></li>
+            <li role="tab" class="Tabs-item AppHeader-Tab Tabs-item--noMeta"><a class="Tabs-link AppHeader-TabsLink"
+                                                                                href="//www.zhihu.com/explore"
+                                                                                data-za-not-track-link="true">分类</a>
+            </li>
+            <li role="tab" class="Tabs-item AppHeader-Tab Tabs-item--noMeta"><a class="Tabs-link AppHeader-TabsLink"
+                                                                                href="//www.zhihu.com/question/waiting"
+                                                                                data-za-not-track-link="true">关于</a>
+            </li>
+        </ul>
+        <div class="AppHeader-userInfo">
+            <div>
+                <div>
+                    <button type="button" id="Toggle-Publish" >
+                        <!--<img class="Avatar AppHeader-profileAvatar" src="https://pic1.zhimg.com/da8e974dc_is.jpg" srcset="https://pic1.zhimg.com/da8e974dc_im.jpg 2x" width="30" height="30">-->
+                        发布文章
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--/头部-->
+<!-- 主体 -->
+<div class="container">
+    <div class="col-md-12 edit-main-content">
+        <div class="md-scope">
+            <form id="commentForm" action="" onsubmit="return false;">
+                <!--标题-->
+                <div>
+                    <!--<label class="WriteIndex-titleInput Input-wrapper Input-wrapper&#45;&#45;multiline">-->
+                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（最多 50 个字）"></textarea>
+                    <!--</label>-->
+                </div>
+                <!--编辑器-->
+                <script>
+                    tinymce.init({
+                        selector: '#content',
+                        language:'zh_CN',                       //注意大小写
+                        menubar: false,                         //隐藏菜单
+                        statusbar: false,                       // 状态栏隐藏
+                        resize: false,                          //编辑区域是否可以改变大小
+                        max_height: 650,                        // 最小高度
+                        auto_focus: "content",                  // 自动获取焦点，值为被替换的textare或div的id
+                        plugins: [                              //插件，可自行根据现实内容删除-->
+                            "advlist autolink anchor link lists charmap print preview image hr pagebreak spellchecker",
+                            "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime nonbreaking",
+                            "save table contextmenu directionality emoticons paste textcolor emoticons",
+                            "code paste help media imagetools fullpage insertdatetime toc codesample autoresize"
+                        ],
+                        toolbar: [
+                            'formatselect bold italic underline strikethrough | bullist numlist charmap image | codesample fullscreen'
+                        ],
+                        toolbar_groups: {
+                            // formatting: {
+                            //     text: '文字格式',
+                            //     tooltip: 'Formatting',
+                            //     items: 'bold italic underline | superscript subscript'
+                            // },
+                            alignment: {
+                                icon: 'align-left',
+                                tooltip: 'alignment',
+                                items: 'alignleft aligncenter alignright alignjustify'
+                            }
+                        },
+                        codesample_content_css: 'prism/prism.css',
+                        codesample_languages: [
+                            { text: 'HTML/XML', value: 'markup' },
+                            { text: 'JavaScript', value: 'javascript' },
+                            { text: 'CSS', value: 'css' },
+                            { text: 'PHP', value: 'php' },
+                            { text: 'Ruby', value: 'ruby' },
+                            { text: 'Python', value: 'python' },
+                            { text: 'Java', value: 'java' },
+                            { text: 'C', value: 'c' },
+                            { text: 'C#', value: 'csharp' },
+                            { text: 'C++', value: 'cpp' },
+                        ]
+                    });
+                    // 以下是5.x版本配置：
+                    // tinymce.init({
+                    //     selector: '#content',
+                    //     // skin: 'oxide-dark',
+                    //     language:'zh_CN',                       //注意大小写-->
+                    //     min_height: 650,                        // 最小高度
+                    //     menubar: false,                         //隐藏菜单
+                    //     resize: false,                          //编辑区域是否可以改变大小
+                    //     statusbar: false,                       // 状态栏隐藏
+                    //     paste_data_images: true,                //允许粘贴图片
+                    //     timeoutSeconds: 7200,
+                    //     //toolbar_mode:wrap,                      //取值：floating / sliding / scrolling / wrap   --自5.2.0开始默认参数为：wrap
+                    //     toolbar_sticky: true,
+                    //     plugins: [                              //插件，可自行根据现实内容删除-->
+                    //         "advlist autolink anchor link lists charmap print preview image hr pagebreak spellchecker",
+                    //         "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime nonbreaking",
+                    //         "save table contextmenu directionality emoticons paste textcolor emoticons",
+                    //         "code paste help media imagetools fullpage insertdatetime toc codesample autoresize"
+                    //     ],
+                    //     toolbar: [
+                    //         'formatselect bold italic underline strikethrough | bullist numlist charmap image | codesample fullscreen'
+                    //     ],
+                    //     codesample_global_prismjs: true,
+                    //     codesample_languages: [
+                    //         { text: 'HTML/XML', value: 'markup' },
+                    //         { text: 'JavaScript', value: 'javascript' },
+                    //         { text: 'CSS', value: 'css' },
+                    //         { text: 'PHP', value: 'php' },
+                    //         { text: 'Ruby', value: 'ruby' },
+                    //         { text: 'Python', value: 'python' },
+                    //         { text: 'Java', value: 'java' },
+                    //         { text: 'C', value: 'c' },
+                    //         { text: 'C#', value: 'csharp' },
+                    //         { text: 'C++', value: 'cpp' },
+                    //     ],
+                    //     codesample_content_css: 'prism/prism.css',
+                    //     toolbar_groups: {
+                    //         // formatting: {
+                    //         //     text: '文字格式',
+                    //         //     tooltip: 'Formatting',
+                    //         //     items: 'bold italic underline | superscript subscript'
+                    //         // },
+                    //         alignment: {
+                    //             icon: 'align-left',
+                    //             tooltip: 'alignment',
+                    //             items: 'alignleft aligncenter alignright alignjustify'
+                    //         }
+                    //     },
+                    //     images_upload_handler: function (blobInfo, succFun, failFun) {
+                    //         var xhr, formData;
+                    //         var file = blobInfo.blob();//转化为易于理解的file对象
+                    //         xhr = new XMLHttpRequest();
+                    //         xhr.withCredentials = false;
+                    //         xhr.open('POST', '/uploadImage');
+                    //         xhr.onload = function() {
+                    //             var json;
+                    //             if (xhr.status !== 200) {
+                    //                 failFun('HTTP Error: ' + xhr.status);
+                    //                 return;
+                    //             }
+                    //             json = JSON.parse(xhr.responseText);
+                    //             if (!json || typeof json.url != 'string') {
+                    //                 failFun('Invalid JSON: ' + xhr.responseText);
+                    //                 return;
+                    //             }
+                    //             succFun(json.url);
+                    //         };
+                    //         formData = new FormData();
+                    //         formData.append('thumbnail', file, file.name);//此处与源文档不一样
+                    //         xhr.send(formData);
+                    //     },
+                    //     /** Init MarkdownIME when TinyMCE is ready: */
+                    //     // setup: function (ed) {
+                    //     //     ed.on('init', function (args) {
+                    //     //         MarkdownIME.Bookmarklet(window)
+                    //     //     });
+                    //     // }
+                    // });
+                </script>
+                <textarea id="content" name="content" class="content"></textarea>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!-- 发布文章 -->
+<script type="text/javascript">
+    $("#Toggle-Publish").click(function(){
+        // 标题
+        var title = $("#title").val();
+        // 获取tinymce 编辑器中的纯文本内容
+        var cnt = tinymce.editors["content"].getContent();
+        // 标题、文章内容非空校验
+        if (Trim(title).length === 0) {
+            alert("标题不能为空！");
+            return false;
+        }
+        if (Trim(cnt).length === 0) {
+            alert("内容不能为空！");
+            return false;
+        }
+        // 提交
+        document.getElementById("commentForm").action = "submit";
+        document.getElementById("commentForm").method = "post";
+        document.getElementById("commentForm").submit();
+        return false;
+    });
+    /**
+     * 过滤字符串去掉标签和空格
+     * @param str
+     * @returns {string}
+     * @constructor
+     */
+    function Trim(str) {
+        var newStr = str.replace(/<[^>]+>/g, "");//去掉所有的html标记
+        return (newStr.replace(/&nbsp;/g, "")).trim(); //去掉所有的&nbsp;
+    }
+</script>
+<!-- /底部 -->
+
+</body>
+</html>

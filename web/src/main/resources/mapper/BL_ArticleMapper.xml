@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.web.mapper.BL_ArticleMapper">
+    <resultMap id="Base_Result_Map" type="com.lyl.web.entity.BL_Article">
+        <id column="B1_ID" jdbcType="BIGINT" property="b1_id" />
+        <result column="B1_THEMATIC" jdbcType="VARCHAR" property="b1_thematic" />
+        <result column="B1_SUBJECT" jdbcType="VARCHAR" property="b1_subject" />
+        <result column="B1_CONTENT" jdbcType="VARCHAR" property="b1_content" />
+        <result column="B4_ID" jdbcType="BIGINT" property="b4_id" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="INTEGER" property="modify_time" />
+        <result column="B1_EXPOSE" jdbcType="TIMESTAMP" property="b1_expose" />
+        <result column="B1_TAGS" jdbcType="VARCHAR" property="b1_tags" />
+    </resultMap>
+    <resultMap id="Base_Result_Map_BL_User" type="com.lyl.web.entity.BL_User">
+        <id column="b0_id" jdbcType="BIGINT" property="b0_id" />
+        <result column="b0_name" jdbcType="VARCHAR" property="b0_name" />
+        <result column="b0_password" jdbcType="VARCHAR" property="b0_password" />
+        <result column="b0_gender" jdbcType="INTEGER" property="b0_gender" />
+        <result column="b0_phone" jdbcType="VARCHAR" property="b0_phone" />
+        <result column="b0_email" jdbcType="VARCHAR" property="b0_email" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
+        <result column="B1_ISMARKDOWN" jdbcType="VARCHAR" property="b1_isMarkDown" />
+    </resultMap>
+    <resultMap id="Base_Result_Map_Vo" type="com.lyl.web.vo.BL_ArticleIndexVO">
+        <id column="B1_ID" jdbcType="BIGINT" property="b1_id" />
+        <id column="B0_ID" jdbcType="BIGINT" property="b0_id" />
+        <result column="B1_THEMATIC" jdbcType="VARCHAR" property="b1_thematic" />
+        <result column="B1_SUBJECT" jdbcType="VARCHAR" property="b1_subject" />
+        <result column="B1_CONTENT" jdbcType="VARCHAR" property="b1_content" />
+        <result column="b4_id" jdbcType="BIGINT" property="b4_id" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
+        <result column="B1_EXPOSE" jdbcType="TIMESTAMP" property="b1_expose" />
+        <result column="B1_TAGS" jdbcType="VARCHAR" property="b1_tags" />
+    </resultMap>
+    <resultMap id="Base_Result_Map_CategoryVo" type="com.lyl.web.vo.BL_CategoryVO">
+        <id column="b4_id" jdbcType="BIGINT" property="b4_id" />
+        <result column="b4_name" jdbcType="VARCHAR" property="b4_name" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
+    </resultMap>
+    <resultMap id="Base_Result_Map_BL_TagVO" type="com.lyl.web.vo.BL_TagVO">
+        <id column="b2_id" jdbcType="BIGINT" property="b4_id" />
+        <id column="b2_pid" jdbcType="BIGINT" property="b2_pid" />
+        <id column="b0_id" jdbcType="BIGINT" property="b0_id" />
+        <id column="b1_id" jdbcType="BIGINT" property="b1_id" />
+        <result column="b2_content" jdbcType="VARCHAR" property="b2_content" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
+    </resultMap>
+    <!-- 根据文章id查询 -->
+    <select id="searchBlArticleById" resultType="com.lyl.web.vo.BL_ArticleIndexVO">
+        select
+        B1_ID,
+        B0_ID,
+        B1_THEMATIC,
+        B1_SUBJECT,
+        B1_CONTENT,
+        create_time,
+        modify_time,
+        B1_EXPOSE
+        from bl_article
+        <where>
+            <if test="_parameter != null">
+                B1_ID = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 查询文章列表 -->
+    <select id="queryList" parameterType="com.lyl.web.vo.BL_ArticleIndexVO" resultMap="Base_Result_Map_Vo">
+        select
+        B1_ID,
+        B0_ID,
+        B1_THEMATIC,
+        B1_SUBJECT,
+        B1_CONTENT,
+        create_time,
+        modify_time,
+        B1_EXPOSE
+        from bl_article
+        <where>
+            <if test="b1_id != null">
+                and B1_ID = #{b1_id}
+            </if>
+            <if test="b1_subject != null">
+                and B1_SUBJECT = #{b1_subject}
+            </if>
+            <if test="b1_content != null">
+                and B1_CONTENT = #{b1_content}
+            </if>
+            <if test="create_time != null">
+                and create_time = #{create_time}
+            </if>
+            <if test="modify_time != null">
+                and modify_time = #{modify_time}
+            </if>
+            <if test="b1_expose != null">
+                and B1_EXPOSE = #{b1_expose}
+            </if>
+        </where>
+        <if test="sortString != null and sortString != ''">
+            order by ${sortString}
+        </if>
+    </select>
+    <!-- 插入文章 -->
+    <insert id="insertOneArticle" useGeneratedKeys="true" keyProperty="b1_id" parameterType="com.lyl.web.entity.BL_Article">
+        insert into
+        bl_article(B1_THEMATIC,B1_SUBJECT, B1_CONTENT)
+        values(#{b1_thematic},#{b1_subject}, #{b1_content})
+    </insert>
+    <!-- 最受欢迎列表 -->
+    <select id="queryMostPopulars" parameterType="com.lyl.web.vo.BL_ArticleIndexVO" resultMap="Base_Result_Map_Vo">
+        select
+        B1_ID,
+        B0_ID,
+        B1_THEMATIC,
+        B1_SUBJECT,
+        B1_CONTENT,
+        create_time,
+        modify_time,
+        B1_EXPOSE
+        B1_clicks
+        from bl_article
+        <where>
+            <if test="b1_id != null">
+                B1_ID = #{b1_id}
+            </if>
+            <if test="b0_id != null">
+                B0_ID = #{b0_id}
+            </if>
+            <if test="b1_subject != null">
+                and B1_SUBJECT = #{b1_subject}
+            </if>
+            <if test="b1_content != null">
+                and B1_CONTENT = #{b1_content}
+            </if>
+            <if test="create_time != null">
+                and create_time = #{create_time}
+            </if>
+            <if test="modify_time != null">
+                and modify_time = #{modify_time}
+            </if>
+            <if test="b1_expose != null">
+                and B1_EXPOSE = #{b1_expose}
+            </if>
+        </where>
+        <if test="sortString != null and sortString != ''">
+            order by ${sortString}
+        </if>
+        LIMIT 0,3
+    </select>
+    <!-- 按月查询归档信息 -->
+    <select id="queryArchives" parameterType="com.lyl.web.vo.BL_ArticleArchiveVO" resultType="com.lyl.web.vo.BL_ArticleArchiveVO">
+        SELECT DATE_FORMAT(create_time,'%c月，%Y') as timeString,count(*) as sumCount FROM bl_article GROUP BY  DATE_FORMAT(create_time,'%c月，%Y')
+        <if test="sortString != null and sortString != ''">
+            order by ${sortString}
+        </if>
+    </select>
+    <!-- 查询分类信息 -->
+    <select id="queryCategories" parameterType="com.lyl.web.vo.BL_CategoryVO" resultMap="Base_Result_Map_CategoryVo">
+        select
+        b4_id,
+        b4_name,
+        create_time,
+        modify_time
+        from bl_category
+        <where>
+            <if test="b4_id != null">
+                B1_ID = #{b1_id}
+            </if>
+            <if test="b4_name != null">
+                and B1_SUBJECT = #{b1_subject}
+            </if>
+            <if test="create_time != null">
+                and create_time = #{create_time}
+            </if>
+            <if test="modify_time != null">
+                and modify_time = #{modify_time}
+            </if>
+        </where>
+        <if test="sortString != null and sortString != ''">
+            order by ${sortString}
+        </if>
+        LIMIT 0,3
+    </select>
+    <!-- 查询标签信息 -->
+    <select id="queryTags" parameterType="com.lyl.web.vo.BL_TagVO" resultMap="Base_Result_Map_BL_TagVO">
+        select
+        b3_id,
+        b3_name,
+        create_time,
+        modify_time
+        from bl_tag
+        <where>
+            <if test="b3_id != null">
+                B1_ID = #{b1_id}
+            </if>
+            <if test="b3_name != null">
+                and B1_SUBJECT = #{b1_subject}
+            </if>
+            <if test="create_time != null">
+                and create_time = #{create_time}
+            </if>
+            <if test="modify_time != null">
+                and modify_time = #{modify_time}
+            </if>
+        </where>
+        <if test="sortString != null and sortString != ''">
+            order by ${sortString}
+        </if>
+    </select>
+    <!-- 更新点击数 -->
+    <update id="updateClicksById" parameterType="java.lang.Integer">
+        UPDATE bl_article SET B1_CLICKS=B1_CLICKS + 1
+        <where>
+            <if test="_parameter != null">
+                B1_ID = #{_parameter}
+            </if>
+        </where>
+    </update>
+    <!-- 根据用户id查询用户 -->
+    <select id="searchBlUserById" parameterType="java.lang.Integer" resultMap="Base_Result_Map_BL_User">
+        select
+        b0_id,
+        b0_name,
+        b0_password,
+        b0_gender,
+        b0_phone,
+        b0_email,
+        create_time,
+        modify_time
+        from bl_user
+        <where>
+            <if test="_parameter != null">
+                b0_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 统计某文章评论数量 -->
+    <select id="sumCommentsCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        count(*)
+        from bl_comment
+        <where>
+            <if test="_parameter != null">
+                b1_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 根据文章查询文章标签 -->
+    <select id="queryTagsByArticleId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select
+        B1_TAGS
+        from bl_article
+        <where>
+            <if test="_parameter != null">
+                b1_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 根据标签id查询 -->
+    <select id="queryTagById" resultType="com.lyl.web.vo.BL_TagVO">
+        select
+        b3_id,
+        b3_name,
+        create_time,
+        modify_time
+        from bl_tag
+        <where>
+            <if test="_parameter != null">
+                b3_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 根据标签id查询 -->
+    <select id="queryArticleCountByCategoryId" resultType="java.lang.Integer">
+        select
+        count(*)
+        from bl_article
+        <where>
+            <if test="_parameter != null">
+                b4_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+
+</mapper>

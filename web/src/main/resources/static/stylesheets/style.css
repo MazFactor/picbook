@@ -1,0 +1,42 @@
+/* CSS Document */
+body {height:100%;font:13px 'PT Sans', Arial, Tahoma, Verdana, Sans-Serif;color:#626363;background:#fff url(../images/body.jpg);}
+div, html, body, p, ul, ol, li, a, form, img, table, td, h1, h2, h3, h4, h5, h6, blockquote, header, section, footer, aside, nav, article, figure, figcaption, dl, dt, dd {margin:0;padding:0;} 
+header, section, footer, aside, nav, article, figure, figcaption {display: block;}
+table {border-collapse:collapse;}
+img {border:none;}
+/*ul, li {list-style:none;}*/
+a, a:active, a:visited {text-decoration:none;color:#3fa3c9;}
+a:hover {text-decoration:none;color:#3fa3c9;}
+input:focus, textarea:focus {outline:none;}
+
+/*  wrapper  */
+.footer footer:after, .wraper:after{content:'';display:block;height:0;clear:both;}
+.wrapper, .footer footer{width:890px;margin:0 auto;display:flex;flex-direction:row;}
+.bwWrapper {position:relative;display:block;}
+.wrapper{border: 1px solid #CECECE;margin-top:100px;padding-top:20px}
+
+    /* preview */
+.wrapper .preview{padding: 0 65px; width:550px;}
+.wrapper .preview .mtime{font-style:italic;font-size:12px;font-family:Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;}
+.wrapper .preview .large-pic{width:100%;margin-top:18px;}
+.wrapper .preview .brief{width:100%;margin-top:8px;}
+.wrapper .preview .brief p{line-height:1.5}
+
+    /* list */
+.wrapper .list{padding: 0; width:180px;}
+.wrapper .list ul{list-style: none;margin-top:15px;width:150px;}
+.wrapper .list ul li{float:left;width:25%;margin-bottom:2px;}
+.wrapper .list ul li img{border-radius:3px;}
+.wrapper .list input{width:160px;height:32px;border:1px solid #F0F4F5;background-color:#F0F4F5;padding-left:12px;font-size:15px;color:#B2B2B3;border-radius:2px;}
+.wrapper .list .category{padding: 0; width:180px;}
+.wrapper .list .category ul{list-style:none;}
+
+	/* copyright */
+.copyright {border-top:1px solid #e7e6e6;}
+.copyright p {font-size:11px;padding:20px 0;}
+.copyright p span:after, .copyright p a:before {content:'|';padding:0 5px;}
+.copyright p a, .copyright p a:visited {color:#626363;}
+.copyright p a:hover {color:#3fa3c9;}
+.copyright .top, .copyright .top:visited {color:#626363;font-size:11px;position:absolute;top:20px;right:0;padding-right:12px;}
+.copyright .top:hover {color:#3fa3c9;}
+.copyright .top:after {content:'';position:absolute;top:5px;right:0;background:url(../images/sprite.png) 6px 0 no-repeat;display:block;width:12px;height:5px;}
