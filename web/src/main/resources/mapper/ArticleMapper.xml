@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.web.mapper.ArticleMapper">
+    <resultMap id="Base_Result_Map_Article" type="com.lyl.web.entity.Article">
+        <id column="article_id" jdbcType="BIGINT" property="article_id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="pic_id" jdbcType="BIGINT" property="pic_id" />
+        <result column="brief" jdbcType="TIMESTAMP" property="brief" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="INTEGER" property="modify_time" />
+    </resultMap>
+    <select id="findArticleByPicId" parameterType="java.lang.Integer" resultType="com.lyl.web.entity.Article">
+        select
+        *
+        from article
+        <where>
+            <if test="_parameter != null">
+                pic_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+</mapper>

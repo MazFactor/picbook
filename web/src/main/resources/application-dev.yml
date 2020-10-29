@@ -17,6 +17,10 @@ spring:
     #     新版本不支持content-type: text/html，故新写法
     servlet:
       content-type: text/html
+#  resources:     #访问系统外部资源，将该目录下的文件映射到系统下
+#    static-locations: classpath:/static/ #本地文件
+#  mvc:
+#    static-path-pattern: /pic/**
 #  http:
 #    multipart:
 #      enable:false
