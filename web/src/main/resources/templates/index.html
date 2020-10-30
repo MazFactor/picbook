@@ -11,31 +11,32 @@
     <div class="preview">
         <div class="mtime"><span  th:text="${#dates.format(article.create_time, 'M月 d，yyyy')}">May 20, 2014</span> / <a href="#"> 3 Comments</a></div>
         <h2 style="margin-top:8px" >STANDARD POST FORMAT</h2>
-        <div class="large-pic"><img src="pic/blog/blog_11.png" alt="" width="100%"></div>
-        <div class="brief">
+        <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
+        <div class="brief" th:utext="${article.brief}">
             <p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>
+            <!--<p><a href="#">Continue Reading...</a></p>-->
+        </div>
+        <div class="continue">
             <p><a href="#">Continue Reading...</a></p>
+
         </div>
     </div>
     <div class="list">
         <input type="text" placeholder="Search..." class="btn-search">
         <h4 style="margin-top:25px">PHOTOSTRAM</h4>
         <ul>
-            <li><a href="#"><img src="pic/blog/blog_01.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_02.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_03.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_04.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_05.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_06.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_07.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_08.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_09.png" width="32" height="32" alt="" ></a></li>
-            <li><a href="#"><img src="pic/blog/blog_10.png" width="32" height="32" alt="" ></a></li>
+            <li th:each="picture, index : ${pictures}"><a href="#"><img th:src="${picture.pic}" width="32" height="32" alt="" ></a></li>
         </ul>
         <div class="category">
             <h4>CATEGORIES</h4>
             <ul>
-                <li><a href="#">Uncategorized</a></li>
+                <li th:each="category, index : ${categories}"><a href="#" th:utext="${category.category}"></a></li>
+            </ul>
+        </div>
+        <div class="timeline">
+            <h4>Timeline</h4>
+            <ul>
+                <li th:each="item, index : ${timeline}"><a href="#" th:text="${item.timeString}">May 20, 2014</a><span>（[[${item.sumCoun}]]）</span></li>
             </ul>
         </div>
     </div>

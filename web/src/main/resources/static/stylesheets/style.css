@@ -21,6 +21,7 @@ input:focus, textarea:focus {outline:none;}
 .wrapper .preview .large-pic{width:100%;margin-top:18px;}
 .wrapper .preview .brief{width:100%;margin-top:8px;}
 .wrapper .preview .brief p{line-height:1.5}
+.wrapper .preview .continue p{line-height:1.5}
 
     /* list */
 .wrapper .list{padding: 0; width:180px;}
@@ -28,8 +29,15 @@ input:focus, textarea:focus {outline:none;}
 .wrapper .list ul li{float:left;width:25%;margin-bottom:2px;}
 .wrapper .list ul li img{border-radius:3px;}
 .wrapper .list input{width:160px;height:32px;border:1px solid #F0F4F5;background-color:#F0F4F5;padding-left:12px;font-size:15px;color:#B2B2B3;border-radius:2px;}
+    /* category */
 .wrapper .list .category{padding: 0; width:180px;float:left;margin-top:25px;}
 .wrapper .list .category ul{list-style:none;}
+.wrapper .list .category ul li{float:left;width:100%;margin-bottom:2px;}
+    /* Timeline */
+.wrapper .list .timeline{padding: 0; width:180px;float:left;margin-top:25px;}
+.wrapper .list .timeline ul{list-style:none;}
+.wrapper .list .timeline ul li{float:left;width:100%;margin-bottom:2px;}
+.wrapper .list .timeline ul li span{font-family: "Times New Roman";font-size:12px;}
 
 	/* copyright */
 .copyright {border-top:1px solid #e7e6e6;}

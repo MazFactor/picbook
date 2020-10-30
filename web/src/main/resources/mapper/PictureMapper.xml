@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.web.mapper.PictureMapper">
+    <resultMap id="Base_Result_Map_Picture" type="com.lyl.web.entity.Picture">
+        <id column="pic_id" jdbcType="BIGINT" property="pic_id" />
+        <result column="pic" jdbcType="VARCHAR" property="pic" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
+    </resultMap>
+    <select id="findPictureById" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Picture">
+        select
+        *
+        from picture
+        <where>
+            <if test="_parameter != null">
+                pic_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <select id="findPicturesByDay" parameterType="java.util.Date" resultMap="Base_Result_Map_Picture">
+        select
+        *
+        from picture
+        <where>
+            <if test="theDate != null">
+                <![CDATA[ to_days(create_time) = to_days(#{theDate,jdbcType=DATE})  ]]>
+            </if>
+        </where>
+    </select>
+    <select id="findPicturesByTimeline" resultType="com.lyl.web.vo.TimelineVO">
+        select
+        DATE_FORMAT(create_time,'%d月，%Y') as timeString,count(*) as sumCoun
+        from picture
+        where date_format(create_time,'%Y')=date_format(now(),'%Y')
+        GROUP BY  DATE_FORMAT(create_time,'%d月，%Y')
+    </select>
+</mapper>
