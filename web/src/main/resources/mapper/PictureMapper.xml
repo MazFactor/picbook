@@ -7,6 +7,7 @@
         <result column="create_time" jdbcType="VARCHAR" property="create_time" />
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
     </resultMap>
+    <!-- 根据ID查询图片 -->
     <select id="findPictureById" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Picture">
         select
         *
@@ -17,6 +18,7 @@
             </if>
         </where>
     </select>
+    <!-- 查夜某一天的图片 -->
     <select id="findPicturesByDay" parameterType="java.util.Date" resultMap="Base_Result_Map_Picture">
         select
         *
@@ -27,11 +29,36 @@
             </if>
         </where>
     </select>
-    <select id="findPicturesByTimeline" resultType="com.lyl.web.vo.TimelineVO">
+    <!-- 查询时间线 -->
+    <select id="findAllTimeline" resultType="com.lyl.web.vo.TimelineVO">
         select
         DATE_FORMAT(create_time,'%d月，%Y') as timeString,count(*) as sumCoun
         from picture
         where date_format(create_time,'%Y')=date_format(now(),'%Y')
         GROUP BY  DATE_FORMAT(create_time,'%d月，%Y')
+        ORDER BY create_time desc
+    </select>
+    <!-- 查询最新一张图片 -->
+    <select id="findTheLatestPicture" resultMap="Base_Result_Map_Picture">
+        select * from picture order by create_time desc limit 0,1
+    </select>
+    <!-- 根据分类查询图片 -->
+    <select id="findPicturesByCategoryId" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Picture">
+        select * from picture
+        <where>
+            <if test="_parameter != null">
+                category_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 根据时间线查询图片 -->
+    <select id="findPicturesByTimeline" parameterType="java.lang.String" resultMap="Base_Result_Map_Picture">
+        select *
+        from picture
+        <where>
+            <if test="_parameter != null">
+                DATE_FORMAT(create_time,'%d月，%Y') = #{_parameter}
+            </if>
+        </where>
     </select>
 </mapper>

@@ -14,5 +14,11 @@ import java.util.List;
 public interface PictureMapper {
     List<Picture> findPicturesByDay(@Param("theDate")Date theDate);
 
-    List<TimelineVO> findPicturesByTimeline();
+    List<TimelineVO> findAllTimeline();
+
+    Picture findTheLatestPicture();
+
+    List<Picture> findPicturesByCategoryId(Integer categoryId);
+
+    List<Picture> findPicturesByTimeline(String timeline);
 }

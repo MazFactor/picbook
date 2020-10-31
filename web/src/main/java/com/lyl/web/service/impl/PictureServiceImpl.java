@@ -7,7 +7,6 @@ import com.lyl.web.vo.TimelineVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,22 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public List<TimelineVO> findPicturesByTimeline() {
-        return pictureMapper.findPicturesByTimeline();
+    public List<TimelineVO> findAllTimeline() {
+        return pictureMapper.findAllTimeline();
+    }
+
+    @Override
+    public Picture findTheLatestPicture() {
+        return pictureMapper.findTheLatestPicture();
+    }
+
+    @Override
+    public List<Picture> findPicturesByCategoryId(Integer categoryId) {
+        return pictureMapper.findPicturesByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<Picture> findPicturesByTimeline(String timeline) {
+        return pictureMapper.findPicturesByTimeline(timeline);
     }
 }
