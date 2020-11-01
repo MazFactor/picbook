@@ -10,7 +10,7 @@
 <div class="wrapper">
     <div id="preview_container">
     <div class="preview">
-        <div class="mtime"><span  th:text="${#dates.format(article.create_time, 'M月 d，yyyy')}">May 20, 2014</span> / <a href="#"> 3 Comments</a></div>
+        <div class="mtime"><span  th:text="${#dates.format(article.create_time, 'M月 d，yyyy')}">May 20, 2014</span> / <a href="cropper"> 3 Comments</a></div>
         <h2 style="margin-top:8px" >STANDARD POST FORMAT</h2>
         <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
         <div class="brief" th:utext="${article.brief}">

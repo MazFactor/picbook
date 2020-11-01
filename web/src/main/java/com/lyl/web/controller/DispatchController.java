@@ -94,8 +94,8 @@ public class DispatchController {
         return "pics";
     }
 
-    @RequestMapping(value = "/testCropper")
+    @RequestMapping(value = "/cropper")
     public String testCropper(Model model, HttpServletRequest request) {
-        return "test/testcropper";
+        return "cropper";
     }
 }
