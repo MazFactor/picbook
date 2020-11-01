@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="scripts/jquery.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div id="preview_container">
+        <div class="preview">
+            <div class="mtime"><span>May 20, 2014</span> / <a href="post"> 3 Comments</a></div>
+            <h2 style="margin-top:8px" >STANDARD POST FORMAT</h2>
+            <div class="large-pic"><img src="" alt="" width="100%"></div>
+            <div class="brief">
+                <p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>
+                <!--<p><a href="#">Continue Reading...</a></p>-->
+            </div>
+            <!--<div class="continue">-->
+            <!--<p><a href="#">Continue Reading...</a></p>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="list">
+        <input type="text" placeholder="Search..." class="btn-search">
+        <div id="pic_container">
+            <div class="pic">
+                <h4>PHOTOSTRAM</h4>
+                <ul>
+                    <li><a href="javascript:void(0);"><img src="" width="32" height="32" alt="" ></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="category">
+            <h4>CATEGORIES</h4>
+            <ul>
+                <li><a href="javascript:void(0);"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    <!-- 点击图片刷新文章 -->
+    function toPic(pic_id) {
+        //发出POST请求
+        $.ajax({
+            url:"/picture",
+            data: {picId:pic_id},
+            type: "POST",
+            dataType: 'text',
+            success: function (data) {
+                $("#preview_container").html(data);
+            },
+            error:function (e) {
+                alert("获取信息失败，请稍后重试！");
+            }
+        });
+    }
+    <!-- 点击分类刷新图片列表 -->
+    function toCategory(category_id) {
+        //发出POST请求
+        $.ajax({
+            url:"/category",
+            data: {categoryId:category_id},
+            type: "POST",
+            dataType: 'text',
+            success: function (data) {
+                $("#pic_container").html(data);
+            },
+            error:function (e) {
+                alert("获取信息失败，请稍后重试！");
+            }
+        });
+    }
+    <!-- 点击时间线刷新图片列表 -->
+    function toTimeline(timeString) {
+        //发出POST请求
+        $.ajax({
+            url:"/timeline",
+            data: {timeString:timeString},
+            type: "POST",
+            dataType: 'text',
+            success: function (data) {
+                $("#pic_container").html(data);
+            },
+            error:function (e) {
+                alert("获取信息失败，请稍后重试！");
+            }
+        });
+    }
+</script>
+</body>
+</html>
