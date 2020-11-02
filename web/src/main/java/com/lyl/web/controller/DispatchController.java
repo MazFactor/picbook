@@ -113,7 +113,7 @@ public class DispatchController {
                           @RequestParam(value = "thematic") String img,
                           @RequestParam(value = "brief") String brief,
                           @RequestParam(value = "category") String category){
-        if(title == null || title.length() <= 0 || img == null) return "error";
+        if(title == null || title.length() <= 0 || img == null || img.length() <= 0) return "error";
         // 判断是否新增分类，如果是则新增并获取新增分类ID；否则获取已存在分类ID
         Category categoryExisted;
         Integer categoryId = -1;
@@ -137,7 +137,7 @@ public class DispatchController {
         Picture newPicture = new Picture();
         try {
             if(multipartFile != null) {
-                image = FileUtil.uploadFile("D:\\images\\blog", multipartFile);
+                image = FileUtil.uploadFile("file:D:/images/blog/", multipartFile);
                 if(image != null){
                     imageUrlForFront = "pic/blog/" + image.getName();
                 }
