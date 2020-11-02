@@ -1,4 +1,4 @@
-package com.jinghuan.common.exception;
+package com.lyl.common.exception;
 
 import java.text.MessageFormat;
 

@@ -1,4 +1,4 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 import com.alibaba.druid.pool.DruidDataSource;
 

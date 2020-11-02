@@ -40,4 +40,9 @@ public class PictureServiceImpl implements PictureService {
     public List<Picture> findPicturesByTimeline(String timeline) {
         return pictureMapper.findPicturesByTimeline(timeline);
     }
+
+    @Override
+    public void insertNewPicture(Picture newPicture) {
+        pictureMapper.insertNewPicture(newPicture);
+    }
 }

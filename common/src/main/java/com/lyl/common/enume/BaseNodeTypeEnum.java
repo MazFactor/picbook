@@ -1,11 +1,11 @@
-package com.jinghuan.common.enume;
+package com.lyl.common.enume;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.jinghuan.common.constant.BaseMsgConstant;
-import com.jinghuan.common.exception.ApplicationException;
-import com.jinghuan.common.serializer.BaseEnumSerializer;
+import com.lyl.common.constant.BaseMsgConstant;
+import com.lyl.common.exception.ApplicationException;
+import com.lyl.common.serializer.BaseEnumSerializer;
 
 import java.text.MessageFormat;
 

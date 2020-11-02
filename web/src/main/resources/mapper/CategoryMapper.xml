@@ -10,4 +10,16 @@
     <select id="findAllCategories" resultMap="Base_Result_Map_Category">
         select * from category
     </select>
+    <select id="findCategoryByName" parameterType="java.lang.String" resultMap="Base_Result_Map_Category">
+        select * from category
+        <where>
+            <if test="_parameter != null">
+                category = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <insert id="insertNewCategory" useGeneratedKeys="true" keyProperty="category_id" parameterType="com.lyl.web.entity.Category">
+        insert into category(category)
+        values(#{category})
+    </insert>
 </mapper>

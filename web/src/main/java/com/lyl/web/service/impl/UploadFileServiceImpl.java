@@ -1,7 +1,7 @@
 package com.lyl.web.service.impl;
 
-import com.jinghuan.common.util.FileUtil;
-import com.jinghuan.common.util.FtpUtil;
+import com.lyl.common.util.FileUtil;
+import com.lyl.common.util.FtpUtil;
 import com.lyl.web.service.UploadFileService;
 //import com.jinghuan.zlog.ZLSimpleLogger;
 //import com.jinghuan.zlog.ZLoggerFactory;

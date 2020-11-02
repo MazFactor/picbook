@@ -1,4 +1,4 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 import com.google.common.collect.Lists;
 import org.dozer.DozerBeanMapper;

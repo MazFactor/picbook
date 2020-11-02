@@ -1,4 +1,4 @@
-package com.jinghuan.common.jiangda.service;
+package com.lyl.common.jiangda.service;
 
 public class JDIntegrationEndpointProxy implements JDIntegrationEndpoint {
   private String _endpoint = null;

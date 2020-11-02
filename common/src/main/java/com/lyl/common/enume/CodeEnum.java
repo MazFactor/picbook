@@ -1,4 +1,4 @@
-package com.jinghuan.common.enume;
+package com.lyl.common.enume;
 
 public enum CodeEnum {
 

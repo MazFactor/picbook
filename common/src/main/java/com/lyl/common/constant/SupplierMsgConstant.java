@@ -1,4 +1,4 @@
-package com.jinghuan.common.constant;
+package com.lyl.common.constant;
 
 /**
  * 通用供应商常量类

@@ -1,7 +1,7 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 
-import com.jinghuan.common.factory.FtpClientFactory;
+import com.lyl.common.factory.FtpClientFactory;
 //import com.jinghuan.zlog.ZLSimpleLogger;
 //import com.jinghuan.zlog.ZLoggerFactory;
 import org.apache.commons.net.ftp.FTP;

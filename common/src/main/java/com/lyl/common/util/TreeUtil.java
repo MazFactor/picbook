@@ -1,6 +1,6 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
-import com.jinghuan.common.enume.FactoryLevelEnum;
+import com.lyl.common.enume.FactoryLevelEnum;
 
 import java.util.ArrayList;
 import java.util.List;

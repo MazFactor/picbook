@@ -1,9 +1,9 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
-import com.jinghuan.common.jiangda.service.*;
-import com.jinghuan.common.jiangda.entity.GbomInterfaceEntity;
+import com.lyl.common.jiangda.service.*;
+import com.lyl.common.jiangda.entity.GbomInterfaceEntity;
 //import com.gw.mdm.common.jiangda.service.*;
-import com.jinghuan.common.jiangda.service.*;
+import com.lyl.common.jiangda.service.*;
 
 import java.net.URL;
 

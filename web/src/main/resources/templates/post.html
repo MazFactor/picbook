@@ -5,89 +5,238 @@
     <title>Index</title>
     <link rel="stylesheet" href="stylesheets/style.css">
     <script src="scripts/jquery.min.js"></script>
+    <script src="prism/prism.js"></script>
+    <script type="text/javascript" src="modules/tinymce_4.9.11/tinymce.min.js"></script>
+    <style type="text/css">
+        .Input {
+            /*-webkit-box-flex: 1;*/
+            /*flex: 1 1;*/
+            padding: 0;
+            overflow: hidden;
+            /*font-family:Microsoft YaHei,sans-serif;*/
+            font-size: 20px;
+            /*background: transparent;*/
+            border: none;
+            resize: none;
+            width: 100%;
+            font-weight: bold;
+            line-height: 22px;
+            color: #626363;
+        }
+        .write-cover{
+            position: relative;
+            background: #f6f6f6;
+            line-height: 192px;
+            color: grey;
+            min-height: 192px;
+            text-align: center;
+            max-width: 650px;
+            /*margin:8px;*/
+        }
+        .WriteCover-editButton {
+            height: 42px;
+            width: 48px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 0;
+            padding: 0;
+            font-size: 14px;
+            line-height: 32px;
+            text-align: center;
+            cursor: pointer;
+            background: none;
+            color: #fff;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper">
-    <div id="preview_container">
-        <div class="preview">
-            <div class="mtime"><span>May 20, 2014</span> / <a href="post"> 3 Comments</a></div>
-            <h2 style="margin-top:8px" >STANDARD POST FORMAT</h2>
-            <div class="large-pic"><img src="" alt="" width="100%"></div>
-            <div class="brief">
-                <p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>
-                <!--<p><a href="#">Continue Reading...</a></p>-->
+    <form id="sub-form" action="" onsubmit="return false;">
+        <div id="preview_container">
+            <div class="preview">
+                <div class="mtime"><span>May 20, 2014</span></div>
+                <!--标题-->
+                <div class="title-container">
+                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（最多 50 个字）"></textarea>
+                </div>
+                <!--题图上传-->
+                <input id="thematic" name="thematic" value="" type="hidden">
+                <div class="pic-uploader">
+                    <div class="write-cover">
+                        <div id="WriteCover-previewWrapper">
+                            <label style="display: block;cursor: pointer">
+                                <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" style="display: none" onchange="selectImg(this)" id="selectImage">
+                                <!--<input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="chooseImg" class="hidden" onchange="selectImg(this)">-->
+                                <svg style="color: rgba(18,18,18,.2);" fill="currentColor" viewBox="0 0 24 24" width="42" height="42">
+                                    <path d="M20.094 6S22 6 22 8v10.017S22 20 19 20H4.036S2 20 2 18V7.967S2 6 4 6h3s1-2 2-2h6c1 0 2 2 2 2h3.094zM12 16a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm0 1.5a5 5 0 1 0-.001-10.001A5 5 0 0 0 12 17.5zm7.5-8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill-rule="evenodd"></path>
+                                </svg>
+                            </label>
+                        </div>
+                        <img src="" id="finalImg" style="display: none; width: 100%; height: 100%;" alt="">
+                        <div id="writeCover-editWrapper" style="position: absolute; right: 0; bottom: 0; z-index: 1;  display:none">
+                            <button title="更换" aria-label="更换" type="button" class="Button WriteCover-editButton WriteCover-uploadButton" id="changeImage">
+                                <!--<button title="更换" aria-label="更换" type="button" class="Button WriteCover-editButton WriteCover-uploadButton" id="changeImage">-->
+                                <svg class="Zi Zi--Camera" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M20.094 6S22 6 22 8v10.017S22 20 19 20H4.036S2 20 2 18V7.967S2 6 4 6h3s1-2 2-2h6c1 0 2 2 2 2h3.094zM12 16a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm0 1.5a5 5 0 1 0-.001-10.001A5 5 0 0 0 12 17.5zm7.5-8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                                          fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <button title="删除" aria-label="删除" type="button" class="Button WriteCover-editButton WriteCover-deleteButton"  id="deleteImage">
+                                <svg class="Zi Zi--TrashOutline" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M16.213 18.638h-7.83V8.085H7.021v10.553c0 .751.611 1.362 1.362 1.362h7.83c.75 0 1.361-.61 1.361-1.362V8.085h-1.361v10.553zM15.19 5.362c0-.751-.61-1.362-1.361-1.362h-3.064c-.751 0-1.362.61-1.362 1.362v.68H6.766S6 6 6 6.715c0 .714.766.69.766.69H17.89s.705 0 .705-.688c0-.689-.705-.673-.705-.673h-2.7v-.681zm-1.361.68h-3.064v-.68h3.064v.68zm-3.745 3.064v8.17h1.362v-8.17h-1.362zm3.064 0v8.17h1.362v-8.17h-1.362z"
+                                          fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="large-pic"><img src="" alt="" width="100%"></div>-->
+                <!--编辑器-->
+                <div class="editor-container">
+                    <script>
+                        tinymce.init({
+                            selector: '#brief',
+                            language:'zh_CN',                       //注意大小写
+                            menubar: false,                         //隐藏菜单
+                            statusbar: false,                       // 状态栏隐藏
+                            resize: false,                          //编辑区域是否可以改变大小
+                            min_height: 650,                        // 最小高度
+                            auto_focus: "content",                  // 自动获取焦点，值为被替换的textare或div的id
+                            plugins: [                              //插件，可自行根据现实内容删除-->
+                                "advlist autolink anchor link lists charmap print preview image hr pagebreak spellchecker",
+                                "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime nonbreaking",
+                                "save table contextmenu directionality emoticons paste textcolor emoticons",
+                                "code paste help media imagetools fullpage insertdatetime toc codesample autoresize"
+                            ],
+                            toolbar: [
+                                'formatselect bold italic underline strikethrough | bullist numlist charmap image | codesample fullscreen'
+                            ],
+                            toolbar_groups: {
+                                // formatting: {
+                                //     text: '文字格式',
+                                //     tooltip: 'Formatting',
+                                //     items: 'bold italic underline | superscript subscript'
+                                // },
+                                alignment: {
+                                    icon: 'align-left',
+                                    tooltip: 'alignment',
+                                    items: 'alignleft aligncenter alignright alignjustify'
+                                }
+                            },
+                            codesample_content_css: 'prism/prism.css',
+                            codesample_languages: [
+                                { text: 'HTML/XML', value: 'markup' },
+                                { text: 'JavaScript', value: 'javascript' },
+                                { text: 'CSS', value: 'css' },
+                                { text: 'PHP', value: 'php' },
+                                { text: 'Ruby', value: 'ruby' },
+                                { text: 'Python', value: 'python' },
+                                { text: 'Java', value: 'java' },
+                                { text: 'C', value: 'c' },
+                                { text: 'C#', value: 'csharp' },
+                                { text: 'C++', value: 'cpp' }
+                            ]
+                        });
+                    </script>
+                    <textarea id="brief" name="brief" class="content"></textarea>
+                </div>
             </div>
-            <!--<div class="continue">-->
-            <!--<p><a href="#">Continue Reading...</a></p>-->
-            <!--</div>-->
         </div>
-    </div>
-    <div class="list">
-        <input type="text" placeholder="Search..." class="btn-search">
-        <div id="pic_container">
-            <div class="pic">
+        <div class="edit-list">
+            <div class="pre-pic">
                 <h4>PHOTOSTRAM</h4>
                 <ul>
-                    <li><a href="javascript:void(0);"><img src="" width="32" height="32" alt="" ></a></li>
+                    <li><a href="javascript:void(0);"><img id="finalImg-pre" src="" width="32" height="32" alt="" ></a></li>
                 </ul>
             </div>
+            <div class="category-edit">
+                <h4>CATEGORIES</h4>
+                <input id="category" name="category" type="text" placeholder="输入分类（限10字）..." class="btn-category">
+            </div>
+            <div class="submit-form">
+                <input type="button" id="btn-submit" class="btn-submit" value="Submit">
+            </div>
         </div>
-        <div class="category">
-            <h4>CATEGORIES</h4>
-            <ul>
-                <li><a href="javascript:void(0);"></a></li>
-            </ul>
-        </div>
-    </div>
+    </form>
 </div>
-<script type="application/javascript">
-    <!-- 点击图片刷新文章 -->
-    function toPic(pic_id) {
-        //发出POST请求
-        $.ajax({
-            url:"/picture",
-            data: {picId:pic_id},
-            type: "POST",
-            dataType: 'text',
-            success: function (data) {
-                $("#preview_container").html(data);
-            },
-            error:function (e) {
-                alert("获取信息失败，请稍后重试！");
-            }
-        });
+<!-- 图像上传 -->
+<script>
+    function selectImg(file) {
+        if (!file.files || !file.files[0]){
+            return;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file.files[0]);
+        reader.onload = function (evt) {
+            var replaceSrc = evt.target.result;
+            //更换cropper的图片
+            //$('#tailoringImg').cropper('replace', replaceSrc,false);//默认false，适应高度，不失真
+            $("#finalImg").attr("src", replaceSrc);
+            $("#finalImg-pre").attr("src", replaceSrc);
+            $("#thematic").attr("value", replaceSrc);
+
+            //设置显示
+            $("#finalImg").css("display", "block");
+            $("#writeCover-editWrapper").css("display", "flex");
+            $("#WriteCover-previewWrapper").css("display", "none");
+        };
     }
-    <!-- 点击分类刷新图片列表 -->
-    function toCategory(category_id) {
-        //发出POST请求
-        $.ajax({
-            url:"/category",
-            data: {categoryId:category_id},
-            type: "POST",
-            dataType: 'text',
-            success: function (data) {
-                $("#pic_container").html(data);
-            },
-            error:function (e) {
-                alert("获取信息失败，请稍后重试！");
-            }
-        });
-    }
-    <!-- 点击时间线刷新图片列表 -->
-    function toTimeline(timeString) {
-        //发出POST请求
-        $.ajax({
-            url:"/timeline",
-            data: {timeString:timeString},
-            type: "POST",
-            dataType: 'text',
-            success: function (data) {
-                $("#pic_container").html(data);
-            },
-            error:function (e) {
-                alert("获取信息失败，请稍后重试！");
-            }
-        });
+    // 绑定更换图片事件
+    $("#changeImage").on("click", function () {
+       $("#selectImage").trigger("click");
+    });
+    // 绑定删除图片事件
+    $("#deleteImage").on("click", function () {
+        $("#finalImg").css("display", "none");
+        $("#finalImg-pre").attr("src", "");
+        $("#thematic").attr("value", "");
+        $("#writeCover-editWrapper").css("display", "none");
+        $("#WriteCover-previewWrapper").css("display", "block");
+    });
+</script>
+<!-- 发布文章 -->
+<script type="text/javascript">
+    $("#btn-submit").click(function(){
+        // 标题
+        var title = $("#title").val();
+        // 获取tinymce 编辑器中的纯文本内容
+        var cnt = tinymce.editors["brief"].getContent();
+        // var picData = $("#thematic").value;
+        // alert(picData);
+        // 标题、文章内容非空校验
+        if (Trim(title).length === 0) {
+            alert("标题不能为空！");
+            return false;
+        }
+        if (Trim(cnt).length === 0) {
+            alert("内容不能为空！");
+            return false;
+        }
+        // 提交
+        document.getElementById("sub-form").action = "publish";
+        document.getElementById("sub-form").method = "post";
+        document.getElementById("sub-form").submit();
+        return false;
+    });
+    /**
+     * 过滤字符串去掉标签和空格
+     * @param str
+     * @returns {string}
+     * @constructor
+     */
+    function Trim(str) {
+        var newStr = str.replace(/<[^>]+>/g, "");//去掉所有的html标记
+        return (newStr.replace(/&nbsp;/g, "")).trim(); //去掉所有的&nbsp;
     }
 </script>
 </body>

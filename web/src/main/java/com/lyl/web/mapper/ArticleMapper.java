@@ -13,4 +13,5 @@ public interface ArticleMapper extends Mapper{
 
     Article findArticleByPicId(Integer parseInt);
 
+    void insertNewArticle(Article newArticle);
 }

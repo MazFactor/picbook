@@ -16,10 +16,11 @@ import java.util.Date;
 @Table(name = "`picture`")
 public class Picture {
     private Integer pic_id;
+    private Integer category_id;
     private String pic;
     @Column(name = "`create_time`")
-    @DateTimeFormat(pattern = com.jinghuan.common.util.DateUtil.DEFAULT_FORMAT_PATTERN_DATETIME)
-    @JsonFormat(pattern = com.jinghuan.common.util.DateUtil.DEFAULT_FORMAT_PATTERN_DATETIME, timezone = com.jinghuan.common.util.DateUtil.DEFAULT_TIME_ZONE_TYPE)
+    @DateTimeFormat(pattern = com.lyl.common.util.DateUtil.DEFAULT_FORMAT_PATTERN_DATETIME)
+    @JsonFormat(pattern = com.lyl.common.util.DateUtil.DEFAULT_FORMAT_PATTERN_DATETIME, timezone = com.lyl.common.util.DateUtil.DEFAULT_TIME_ZONE_TYPE)
     private Date create_time;
 
     @Column(name = "`modify_time`")

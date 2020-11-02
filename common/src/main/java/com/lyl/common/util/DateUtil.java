@@ -1,4 +1,4 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

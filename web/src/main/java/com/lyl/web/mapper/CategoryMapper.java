@@ -10,4 +10,8 @@ import java.util.List;
 @Component
 public interface CategoryMapper {
     List<Category> findAllCategories();
+
+    Category findCategoryByName(String category);
+
+    void insertNewCategory(Category categoryExisted);
 }

@@ -1,4 +1,4 @@
-package com.jinghuan.common.constant;
+package com.lyl.common.constant;
 
 /**
  * @ClassName sysDictContant

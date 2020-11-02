@@ -1,4 +1,4 @@
-package com.jinghuan.common.serializer;
+package com.lyl.common.serializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 
-import com.jinghuan.common.enume.BaseEnum;
-import com.jinghuan.common.util.EnumUtil;
+import com.lyl.common.enume.BaseEnum;
+import com.lyl.common.util.EnumUtil;
 import org.springframework.beans.BeanUtils;
 
 import java.io.IOException;

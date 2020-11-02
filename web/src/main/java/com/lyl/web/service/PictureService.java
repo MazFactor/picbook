@@ -16,4 +16,6 @@ public interface PictureService {
     List<Picture> findPicturesByCategoryId(Integer categoryId);
 
     List<Picture> findPicturesByTimeline(String timeline);
+
+    void insertNewPicture(Picture newPicture);
 }

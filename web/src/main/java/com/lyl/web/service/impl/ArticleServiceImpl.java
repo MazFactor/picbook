@@ -20,5 +20,10 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.findArticleByPicId(picId);
     }
 
+    @Override
+    public void insertNewArticle(Article newArticle) {
+        articleMapper.insertNewArticle(newArticle);
+    }
+
 
 }

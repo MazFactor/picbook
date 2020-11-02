@@ -1,5 +1,7 @@
 package com.lyl.web.controller;
 
+import com.lyl.common.util.Base64Util;
+import com.lyl.common.util.FileUtil;
 import com.lyl.web.entity.Article;
 import com.lyl.web.entity.Category;
 import com.lyl.web.entity.Picture;
@@ -9,11 +11,14 @@ import com.lyl.web.service.PictureService;
 import com.lyl.web.vo.TimelineVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -97,5 +102,66 @@ public class DispatchController {
     @RequestMapping(value = "/post")
     public String testCropper(Model model, HttpServletRequest request) {
         return "post";
+    }
+
+    @Transactional
+    @RequestMapping(value = "/publish")
+    public String publish(Model model,
+                          @RequestParam(value = "title") String title,
+                          @RequestParam(value = "thematic") String img,
+                          @RequestParam(value = "brief") String brief,
+                          @RequestParam(value = "category") String category){
+        if(title == null || title.length() <= 0 || img == null) return "error";
+        // 判断是否新增分类，如果是则新增并获取新增分类ID；否则获取已存在分类ID
+        Category categoryExisted;
+        Integer categoryId = -1;
+        if(category != null && category.length() > 0) {
+            categoryExisted = categoryService.findCategoryByName(category);
+            if(categoryExisted == null) {
+                categoryExisted = new Category();
+                categoryExisted.setCategory(category);
+                categoryService.insertNewCategory(categoryExisted);
+            }
+            categoryId = categoryExisted.getCategory_id();
+        }else {
+            categoryId = 1;
+        }
+        if(categoryId == -1) return "error";
+        // 保存图片并获取新增图片ID
+        MultipartFile multipartFile = Base64Util.base64ToMultipart(img);
+        File image;
+        String imageUrlForFront = null;
+        Integer picId = -1;
+        Picture newPicture = new Picture();
+        try {
+            if(multipartFile != null) {
+                image = FileUtil.uploadFile("D:\\images\\blog", multipartFile);
+                if(image != null){
+                    imageUrlForFront = "pic/blog/" + image.getName();
+                }
+                // 保存图片（路径）
+                if(imageUrlForFront != null && imageUrlForFront.length() > 0) {
+                    newPicture.setPic(imageUrlForFront);
+                    newPicture.setCategory_id(categoryId);
+                    pictureService.insertNewPicture(newPicture);
+                    picId = newPicture.getPic_id();
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return "error";
+        }
+        if(picId == -1) return "error";
+        // 保存文章
+        Integer newArticleId = -1;
+        Article newArticle = new Article();
+        newArticle.setTitle(title);
+        newArticle.setPic_id(picId);
+        newArticle.setPicture(newPicture);
+        newArticle.setBrief(brief);
+        articleService.insertNewArticle(newArticle);
+        newArticleId = newArticle.getArticle_id();
+        if(newArticleId <= 0) return "error";
+        return "redirect:/";
     }
 }

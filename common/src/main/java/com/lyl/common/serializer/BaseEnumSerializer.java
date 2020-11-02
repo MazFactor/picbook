@@ -1,10 +1,10 @@
-package com.jinghuan.common.serializer;
+package com.lyl.common.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.jinghuan.common.exception.ApplicationException;
-import com.jinghuan.common.enume.BaseEnum;
+import com.lyl.common.exception.ApplicationException;
+import com.lyl.common.enume.BaseEnum;
 
 
 import java.io.IOException;

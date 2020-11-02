@@ -1,4 +1,4 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

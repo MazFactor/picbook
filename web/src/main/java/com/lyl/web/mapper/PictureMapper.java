@@ -21,4 +21,6 @@ public interface PictureMapper {
     List<Picture> findPicturesByCategoryId(Integer categoryId);
 
     List<Picture> findPicturesByTimeline(String timeline);
+
+    void insertNewPicture(Picture newPicture);
 }

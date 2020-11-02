@@ -1,4 +1,4 @@
-package com.jinghuan.common.jiangda.entity;
+package com.lyl.common.jiangda.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

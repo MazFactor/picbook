@@ -1,4 +1,4 @@
-package com.jinghuan.common.jiangda.entity;
+package com.lyl.common.jiangda.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

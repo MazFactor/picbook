@@ -4,6 +4,7 @@
     <resultMap id="Base_Result_Map_Picture" type="com.lyl.web.entity.Picture">
         <id column="pic_id" jdbcType="BIGINT" property="pic_id" />
         <result column="pic" jdbcType="VARCHAR" property="pic" />
+        <result column="category_id" jdbcType="INTEGER" property="category_id" />
         <result column="create_time" jdbcType="VARCHAR" property="create_time" />
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
     </resultMap>
@@ -61,4 +62,8 @@
             </if>
         </where>
     </select>
+    <!-- 新增图片-->
+    <insert id="insertNewPicture" useGeneratedKeys="true" keyProperty="pic_id" parameterType="com.lyl.web.entity.Picture">
+        insert into picture(pic, category_id) values(#{pic}, #{category_id})
+    </insert>
 </mapper>

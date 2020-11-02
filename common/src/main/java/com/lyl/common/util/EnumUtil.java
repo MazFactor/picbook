@@ -1,8 +1,8 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 import com.google.common.collect.Lists;
-import com.jinghuan.common.exception.ApplicationException;
-import com.jinghuan.common.enume.BaseEnum;
+import com.lyl.common.exception.ApplicationException;
+import com.lyl.common.enume.BaseEnum;
 
 
 import java.lang.reflect.Method;

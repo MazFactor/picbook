@@ -4,7 +4,7 @@
     <resultMap id="Base_Result_Map_Article" type="com.lyl.web.entity.Article">
         <id column="article_id" jdbcType="BIGINT" property="article_id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <!--<result column="pic_id" jdbcType="BIGINT" property="pic_id" />-->
+        <result column="pic_id" jdbcType="BIGINT" property="pic_id" />
         <result column="brief" jdbcType="TIMESTAMP" property="brief" />
         <result column="create_time" jdbcType="VARCHAR" property="create_time" />
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
@@ -21,4 +21,7 @@
             </if>
         </where>
     </select>
+    <insert id="insertNewArticle" useGeneratedKeys="true" keyProperty="article_id" parameterType="com.lyl.web.entity.Article">
+        insert into article(title, pic_id, brief) values(#{title}, #{pic_id}, #{brief})
+    </insert>
 </mapper>

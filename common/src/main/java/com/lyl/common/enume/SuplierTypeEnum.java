@@ -1,4 +1,4 @@
-package com.jinghuan.common.enume;
+package com.lyl.common.enume;
 /**
  * 业务系统标识 枚举类
  * @说明:

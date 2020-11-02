@@ -1,7 +1,7 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 
-import com.jinghuan.common.exception.ApplicationException;
+import com.lyl.common.exception.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;

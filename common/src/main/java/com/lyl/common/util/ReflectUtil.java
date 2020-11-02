@@ -1,8 +1,8 @@
-package com.jinghuan.common.util;
+package com.lyl.common.util;
 
 
 
-import com.jinghuan.common.exception.ApplicationException;
+import com.lyl.common.exception.ApplicationException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

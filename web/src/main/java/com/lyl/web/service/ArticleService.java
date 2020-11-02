@@ -8,4 +8,6 @@ import java.util.List;
 public interface ArticleService {
 
     Article findArticleByPicId(Integer picId);
+
+    void insertNewArticle(Article newArticle);
 }

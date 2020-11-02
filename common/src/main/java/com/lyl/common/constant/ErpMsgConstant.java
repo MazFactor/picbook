@@ -1,7 +1,7 @@
-package com.jinghuan.common.constant;
+package com.lyl.common.constant;
 
 
-import com.jinghuan.common.util.StringUtil;
+import com.lyl.common.util.StringUtil;
 
 /**
  * @ClassName ErpMsgConstant

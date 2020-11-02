@@ -1,7 +1,7 @@
-package com.jinghuan.common.factory;
+package com.lyl.common.factory;
 
-import com.jinghuan.common.enume.ErpFtpTypeEnum;
-import com.jinghuan.common.util.SftpClient;
+import com.lyl.common.enume.ErpFtpTypeEnum;
+import com.lyl.common.util.SftpClient;
 //import com.jinghuan.zlog.ZLSimpleLogger;
 //import com.jinghuan.zlog.ZLoggerFactory;
 import org.apache.commons.net.ftp.FTPClient;
