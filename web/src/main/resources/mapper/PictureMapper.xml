@@ -38,7 +38,8 @@
         where date_format(create_time,'%Y')=date_format(now(),'%Y')
         GROUP BY  DATE_FORMAT(create_time,'%d月，%Y')
         ORDER BY DATE_FORMAT(create_time,'%d月，%Y') desc
-    </select>
+        LIMIT 0,3
+</select>
     <!-- 查询最新一张图片 -->
     <select id="findTheLatestPicture" resultMap="Base_Result_Map_Picture">
         select * from picture order by create_time desc limit 0,1
