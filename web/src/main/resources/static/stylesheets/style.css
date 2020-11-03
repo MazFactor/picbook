@@ -5,8 +5,8 @@ header, section, footer, aside, nav, article, figure, figcaption {display: block
 table {border-collapse:collapse;}
 img {border:none;}
 /*ul, li {list-style:none;}*/
-a, a:active, a:visited {text-decoration:none;color:#469ebf;}
-a:hover {text-decoration:none;color:#7CB6C9;}
+a, a:active, a:visited {text-decoration:none;color:#6ca4b9;}
+a:hover {text-decoration:none;color: #8abdc7;}
 input:focus, textarea:focus {outline:none;}
 
 /*  wrapper  */
