@@ -18,6 +18,7 @@ public class Picture {
     private Integer pic_id;
     private Integer category_id;
     private String pic;
+    private Integer clicks;
     @Column(name = "`create_time`")
     @DateTimeFormat(pattern = com.lyl.common.util.DateUtil.DEFAULT_FORMAT_PATTERN_DATETIME)
     @JsonFormat(pattern = com.lyl.common.util.DateUtil.DEFAULT_FORMAT_PATTERN_DATETIME, timezone = com.lyl.common.util.DateUtil.DEFAULT_TIME_ZONE_TYPE)

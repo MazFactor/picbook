@@ -1,5 +1,5 @@
 <div class="preview" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="mtime"><span  th:text="${#dates.format(article.create_time, 'M月 d，yyyy')}">May 20, 2014</span> / <a href="#"> 3 Comments</a></div>
+    <div class="mtime"><span th:text="${#dates.format(article.create_time, 'M')}" style="color: #fd8403">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(article.create_time, 'd')}" style="color: #3fa3c9"></span> / <span style="color: plum" th:text="${article.picture.clicks}"></span> <span style="color:#626363">Clicks</span></div>
     <h2 style="margin-top:8px" >STANDARD POST FORMAT</h2>
     <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
     <div class="brief" th:utext="${article.brief}">

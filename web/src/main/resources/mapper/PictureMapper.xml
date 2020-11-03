@@ -5,6 +5,7 @@
         <id column="pic_id" jdbcType="BIGINT" property="pic_id" />
         <result column="pic" jdbcType="VARCHAR" property="pic" />
         <result column="category_id" jdbcType="INTEGER" property="category_id" />
+        <result column="clicks" jdbcType="INTEGER" property="clicks" />
         <result column="create_time" jdbcType="VARCHAR" property="create_time" />
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
     </resultMap>
@@ -19,7 +20,7 @@
             </if>
         </where>
     </select>
-    <!-- 查夜某一天的图片 -->
+    <!-- 查询某一天的图片 -->
     <select id="findPicturesByDay" parameterType="java.util.Date" resultMap="Base_Result_Map_Picture">
         select
         *

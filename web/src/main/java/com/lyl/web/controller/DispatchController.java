@@ -150,7 +150,7 @@ public class DispatchController {
                 }
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("保存图片失败："+e.getMessage());
             return "error";
         }
         if(picId == -1) return "error";
