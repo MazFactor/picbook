@@ -45,4 +45,9 @@ public class PictureServiceImpl implements PictureService {
     public void insertNewPicture(Picture newPicture) {
         pictureMapper.insertNewPicture(newPicture);
     }
+
+    @Override
+    public void clicksOfPicturePlusOne(Integer picId) {
+        pictureMapper.clicksOfPicturePlusOne(picId);
+    }
 }

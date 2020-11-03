@@ -18,4 +18,6 @@ public interface PictureService {
     List<Picture> findPicturesByTimeline(String timeline);
 
     void insertNewPicture(Picture newPicture);
+
+    void clicksOfPicturePlusOne(Integer picId);
 }

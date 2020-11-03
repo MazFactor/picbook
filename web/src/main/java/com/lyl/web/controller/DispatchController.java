@@ -66,10 +66,15 @@ public class DispatchController {
      * @param picId 图片ID
      * @return 文章预览模块
      */
+    @Transactional
     @RequestMapping(value = "/picture", method = RequestMethod.POST)
     public String clickOnePic(Model model,
-                              @RequestParam(value = "picId") String picId) {
+                              @RequestParam(value = "picId") String picId,
+                              @RequestParam(value = "prior_pic_id") String prior_pic_id) {
         if(picId == null || picId.length() <= 0) return "error";
+        // 图片点击数加一
+        if(prior_pic_id != null && prior_pic_id.length() > 0 && !prior_pic_id.equals(picId))
+            pictureService.clicksOfPicturePlusOne(Integer.parseInt(picId));
         // 文章
         Article article = articleService.findArticleByPicId(Integer.parseInt(picId));
         if(article == null) return "error";

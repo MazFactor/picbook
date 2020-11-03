@@ -68,4 +68,12 @@
     <insert id="insertNewPicture" useGeneratedKeys="true" keyProperty="pic_id" parameterType="com.lyl.web.entity.Picture">
         insert into picture(pic, category_id) values(#{pic}, #{category_id})
     </insert>
+    <update id="clicksOfPicturePlusOne" parameterType="java.lang.Integer">
+        update picture set clicks = clicks + 1
+        <where>
+            <if test="_parameter != null">
+                pic_id = #{_parameter}
+            </if>
+        </where>
+    </update>
 </mapper>

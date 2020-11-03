@@ -18,7 +18,8 @@
 <div class="wrapper">
     <div id="preview_container">
     <div class="preview">
-        <div class="mtime"><span th:text="${#dates.format(article.create_time, 'M')}" style="color: #d59d62">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(article.create_time, 'd')}" style="color: #3fa3c9"></span> <span style="font-size: 14px;color:#000;">/</span> <span style="color: #b77cdd" th:text="${article.picture.clicks}"></span> <span style="color:#626363">Clicks</span></div>
+        <input id="keep-pic-id" type="hidden" th:value="${article.picture.pic_id}">
+        <div class="mtime"><span th:text="${#dates.format(article.create_time, 'M')}" style="color: #d59d62">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(article.create_time, 'd')}" style="color: #3fa3c9"></span> <span style="font-size: 14px;color:#000;">/</span> <span id="click-number" style="color: #b77cdd" th:text="${article.picture.clicks}"></span> <span style="color:#626363">Clicks</span></div>
         <div class="top-title"><h2>STANDARD POST FORMAT</h2><div class="btn-article"><a href="edit">Edit</a><span style="margin: 0 2px;font-size:16px">|</span><a id="delArticle" href="delete">Delete</a></div></div>
         <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
         <div class="brief" th:utext="${article.brief}">
@@ -59,10 +60,11 @@
 <script type="application/javascript">
     // 点击图片刷新文章
     function toPic(pic_id) {
+        var prior_pic_id = $("#keep-pic-id").val();
         //发出POST请求
         $.ajax({
             url:"/picture",
-            data: {picId:pic_id},
+            data: {picId:pic_id,prior_pic_id:prior_pic_id},
             type: "POST",
             dataType: 'text',
             success: function (data) {

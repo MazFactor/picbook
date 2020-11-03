@@ -23,4 +23,6 @@ public interface PictureMapper {
     List<Picture> findPicturesByTimeline(String timeline);
 
     void insertNewPicture(Picture newPicture);
+
+    void clicksOfPicturePlusOne(Integer picId);
 }
