@@ -8,7 +8,7 @@
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
     </resultMap>
     <select id="findAllCategories" resultMap="Base_Result_Map_Category">
-        select * from category
+        select * from category limit 0,3
     </select>
     <select id="findCategoryByName" parameterType="java.lang.String" resultMap="Base_Result_Map_Category">
         select * from category
