@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="modules/jqueryConfirm/dist/jquery-confirm.min.css">
     <script src="scripts/jquery.min.js"></script>
+    <script src="modules/jqueryConfirm/dist/jquery-confirm.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
     <div id="preview_container">
     <div class="preview">
         <div class="mtime"><span th:text="${#dates.format(article.create_time, 'M')}" style="color: #d59d62">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(article.create_time, 'd')}" style="color: #3fa3c9"></span> <span style="font-size: 14px;color:#000;">/</span> <span style="color: #b77cdd" th:text="${article.picture.clicks}"></span> <span style="color:#626363">Clicks</span></div>
-        <h2>STANDARD POST FORMAT</h2>
+        <div class="top-title"><h2>STANDARD POST FORMAT</h2><div class="btn-article"><a href="edit">Edit</a><span style="margin: 0 2px;font-size:16px">|</span><a id="delArticle" href="delete">Delete</a></div></div>
+        <script>
+            // 绑定删除操作
+            $("#delArticle").confirm({
+                title: 'Confirm!',
+                content: 'Simple confirm!',
+                // columnClass: 'col-md-4 col-md-offset-4',
+                confirm: function(){
+                    $.alert('Confirmed!');
+                },
+                cancel: function(){
+                    $.alert('Canceled!')
+                }
+            });
+        </script>
         <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
         <div class="brief" th:utext="${article.brief}">
             <p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>
@@ -47,8 +63,9 @@
         </div>
     </div>
 </div>
+<!-- 页面局部刷新 -->
 <script type="application/javascript">
-    <!-- 点击图片刷新文章 -->
+    // 点击图片刷新文章
     function toPic(pic_id) {
         //发出POST请求
         $.ajax({
@@ -64,7 +81,7 @@
             }
         });
     }
-    <!-- 点击分类刷新图片列表 -->
+    // 点击分类刷新图片列表
     function toCategory(category_id) {
         //发出POST请求
         $.ajax({
@@ -80,7 +97,7 @@
             }
         });
     }
-    <!-- 点击时间线刷新图片列表 -->
+    // 点击时间线刷新图片列表
     function toTimeline(timeString) {
         //发出POST请求
         $.ajax({

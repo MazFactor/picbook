@@ -83,7 +83,6 @@ public class DispatchController {
         if(categoryId == null || categoryId.length() <= 0) return "error";
         // 图片列表（按分类查询）
         List<Picture> pictureList = pictureService.findPicturesByCategoryId(Integer.parseInt(categoryId));
-//        if(pictureList == null || pictureList.size() <= 0) return "error";
         model.addAttribute("pictures", pictureList);
         return "pics";
     }
@@ -170,4 +169,6 @@ public class DispatchController {
         if(newArticleId <= 0) return "error";
         return "redirect:/";
     }
+
+
 }

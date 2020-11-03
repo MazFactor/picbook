@@ -19,7 +19,10 @@ input:focus, textarea:focus {outline:none;}
     /* preview */
 .wrapper .preview{padding: 0 65px; width:550px;}
 .wrapper .preview .mtime{font-style:italic;font-size:12px;font-family:Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;}
-.wrapper .preview h2{background-image:-webkit-linear-gradient(left, #d5aad1,#d2c2d5,#89d5c8, #c0d57d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:8px;}
+.wrapper .preview .top-title{display:flex;flex-direction:row;}
+.wrapper .preview .top-title h2{background-image:-webkit-linear-gradient(left, #d5aad1,#d2c2d5,#89d5c8, #c0d57d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:8px;width:82%}
+.wrapper .preview .top-title .btn-article{margin-top:8px; font-size:14px;}
+.wrapper .preview .top-title .btn-article a{text-decoration:underline}
 .wrapper .preview .large-pic{width:100%;margin-top:18px;}
 .wrapper .preview .brief{width:100%;margin-top:8px;}
 .wrapper .preview .brief p{line-height:1.5}
