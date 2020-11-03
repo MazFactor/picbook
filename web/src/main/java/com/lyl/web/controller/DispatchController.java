@@ -81,9 +81,9 @@ public class DispatchController {
     public String clickOneCategory(Model model,
                               @RequestParam(value = "categoryId") String categoryId) {
         if(categoryId == null || categoryId.length() <= 0) return "error";
-        // 文章
+        // 图片列表（按分类查询）
         List<Picture> pictureList = pictureService.findPicturesByCategoryId(Integer.parseInt(categoryId));
-        if(pictureList == null || pictureList.size() <= 0) return "error";
+//        if(pictureList == null || pictureList.size() <= 0) return "error";
         model.addAttribute("pictures", pictureList);
         return "pics";
     }

@@ -49,7 +49,7 @@
     <select id="findPicturesByCategoryId" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Picture">
         select * from picture
         <where>
-            <if test="_parameter != null">
+            <if test="_parameter != null and _parameter != 1">
                 category_id = #{_parameter}
             </if>
         </where>
