@@ -67,7 +67,7 @@
                 <div class="mtime"><span th:text="${nowDate}">May 20, 2014</span></div>
                 <!--标题-->
                 <div class="title-container">
-                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（最多50个字）"></textarea>
+                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（限50字）"></textarea>
                 </div>
                 <!--题图上传-->
                 <input id="thematic" name="thematic" value="" type="hidden">
@@ -212,8 +212,6 @@
         var title = $("#title").val();
         // 获取tinymce 编辑器中的纯文本内容
         var cnt = tinymce.editors["brief"].getContent();
-        // var picData = $("#thematic").value;
-        // alert(picData);
         // 标题、文章内容非空校验
         if (Trim(title).length === 0) {
             alert("标题不能为空！");
