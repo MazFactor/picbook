@@ -67,3 +67,34 @@ input:focus, textarea:focus {outline:none;}
 .copyright .top, .copyright .top:visited {color:#626363;font-size:11px;position:absolute;top:20px;right:0;padding-right:12px;}
 .copyright .top:hover {color:#3fa3c9;}
 .copyright .top:after {content:'';position:absolute;top:5px;right:0;background:url(../images/sprite.png) 6px 0 no-repeat;display:block;width:12px;height:5px;}
+
+/*b) 常用于稍微复杂的基本响应*/
+/*@media all and (min-width:1200px){}*/
+/*@media all and (min-width: 960px) and (max-width: 1199px) {}*/
+/*@media all and (min-width: 768px) and (max-width: 959px) {}*/
+/*@media all and (min-width: 480px) and (max-width: 767px){}*/
+/*@media all and (max-width: 599px) {}*/
+@media all and (max-width: 479px) {
+    /* index */
+    .wrapper{width:415px;flex-direction: column;border:none;margin: 10px auto;padding: 10px 10px;}
+    .wrapper .preview{float:left;width:100%;padding:0;}
+    .wrapper .list{float:left;width:100%;margin: 25px auto;}
+    /* post */
+    .wrapper form{flex-direction:column}
+    .wrapper .edit-list{float:left;width:100%;margin: 25px auto;}
+    .wrapper form .edit-list .pre-pic{margin-top:25px}
+}
+
+/*c) 基于Bootstrap 3.x 全球主流框架*/
+/*@media all and (max-width: 991px) { ... }*/
+/*@media all and (max-width: 768px) { ... }*/
+/*@media all and (max-width: 480px) { ... }*/
+
+/*d) 基于Bootstrap 4.x 全球主流框架*/
+/*@media (min-width: 576px) { ... }*/
+/*@media (min-width: 768px) { ... }*/
+/*@media (min-width: 992px) { ... }*/
+/*@media (min-width: 1200px) { ... }*/
+
+/*e) 常用于Retina屏幕图片适配(@2x)*/
+/*@media(-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:3/2),(min-resolution:1.5dppx){ ... }*/

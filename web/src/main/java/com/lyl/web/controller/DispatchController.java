@@ -103,6 +103,8 @@ public class DispatchController {
 
     @RequestMapping(value = "/post")
     public String testCropper(Model model, HttpServletRequest request) {
+        SimpleDateFormat sdf = new SimpleDateFormat("M月 d, yyyy");
+        model.addAttribute("nowDate", sdf.format(new Date()));
         return "post";
     }
 

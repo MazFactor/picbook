@@ -64,10 +64,10 @@
     <form id="sub-form" action="" onsubmit="return false;">
         <div id="preview_container">
             <div class="preview">
-                <div class="mtime"><span>May 20, 2014</span></div>
+                <div class="mtime"><span th:text="${nowDate}">May 20, 2014</span></div>
                 <!--标题-->
                 <div class="title-container">
-                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（最多 50 个字）"></textarea>
+                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（最多50个字）"></textarea>
                 </div>
                 <!--题图上传-->
                 <input id="thematic" name="thematic" value="" type="hidden">
@@ -119,7 +119,7 @@
                                 "code paste help media imagetools fullpage insertdatetime toc codesample autoresize"
                             ],
                             toolbar: [
-                                'formatselect bold italic underline strikethrough | bullist numlist charmap image | codesample fullscreen'
+                                'formatselect bold italic underline strikethrough | bullist numlist | fullscreen'
                             ],
                             toolbar_groups: {
                                 // formatting: {
@@ -187,6 +187,7 @@
 
             //设置显示
             $("#finalImg").css("display", "block");
+            $("#finalImg").css("border","1px solid #CECECE");
             $("#writeCover-editWrapper").css("display", "flex");
             $("#WriteCover-previewWrapper").css("display", "none");
         };
