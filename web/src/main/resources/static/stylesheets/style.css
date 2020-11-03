@@ -5,8 +5,8 @@ header, section, footer, aside, nav, article, figure, figcaption {display: block
 table {border-collapse:collapse;}
 img {border:none;}
 /*ul, li {list-style:none;}*/
-a, a:active, a:visited {text-decoration:none;color:#3fa3c9;}
-a:hover {text-decoration:none;color:#3fa3c9;}
+a, a:active, a:visited {text-decoration:none;color:#469ebf;}
+a:hover {text-decoration:none;color:#7CB6C9;}
 input:focus, textarea:focus {outline:none;}
 
 /*  wrapper  */
@@ -45,6 +45,8 @@ input:focus, textarea:focus {outline:none;}
 .wrapper .list .timeline ul{list-style:none;margin-top:15px;width:150px;}
 .wrapper .list .timeline ul li{float:left;width:100%;margin-bottom:2px;}
 .wrapper .list .timeline ul li span{font-family: "Times New Roman";font-size:12px;}
+    /*post-link*/
+.wrapper .list .post-link{font-style: italic;border: 1px dashed #298084cc;padding: 10px 12px;color: #bf99bc;font-weight: 900;}
 
     /* edit wrapper*/
 .wrapper form{display:flex}
