@@ -97,6 +97,21 @@ public class FileUtil {
         return fileCache;
     }
 
+    public static String uploadFile2(String filePath, MultipartFile file) throws IOException {
+        String fileName;
+        // 得到文件对象
+        File fileCache = new File(filePath+ StringUtil.STR_FILE_SEPARATOR + file.getOriginalFilename());
+        // 判断文件所在的目录是否存在，若不存在则创建
+        if (!fileCache.getParentFile().exists()) {
+            fileCache.getParentFile().mkdirs();
+        }
+        // 写文件
+        file.transferTo(fileCache);
+        fileName = fileCache.getName();
+        file.getInputStream().close();
+        return fileName;
+    }
+
     /**
      * 将上传的文件写入缓存文件并保存
      *
@@ -150,6 +165,30 @@ public class FileUtil {
      */
     public static void delete(String fileName) {
         File sourceFile = new File(FILE_PATH_ROOT + fileName);
+        if (sourceFile.isFile()) {
+            if (!sourceFile.delete()){
+                logger.error("file delete failed");
+            }
+        } else {
+            File[] listFiles = sourceFile.listFiles();
+            for (int i = 0; i < listFiles.length; i++) {
+                if (!listFiles[i].delete()){
+                    logger.error("file delete failed");
+                }
+            }
+            if (!sourceFile.delete()){
+                logger.error("file delete failed");
+            }
+        }
+    }
+
+    /**
+     * 删除缓存文件
+     *
+     * @param fileName 文件或文件夹
+     */
+    public static void deleteFile(String fileName) {
+        File sourceFile = new File(fileName);
         if (sourceFile.isFile()) {
             if (!sourceFile.delete()){
                 logger.error("file delete failed");

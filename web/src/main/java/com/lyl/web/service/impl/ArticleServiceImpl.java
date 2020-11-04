@@ -25,5 +25,15 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.insertNewArticle(newArticle);
     }
 
+    @Override
+    public Article findArticleById(Integer articleId) {
+        return articleMapper.findArticleById(articleId);
+    }
+
+    @Override
+    public void deleteArticleById(Integer articleId) {
+        articleMapper.deleteArticleById(articleId);
+    }
+
 
 }

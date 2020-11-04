@@ -1,13 +1,16 @@
 package com.lyl.web.controller;
 
+import com.github.tomakehurst.wiremock.common.Json;
 import com.lyl.common.util.Base64Util;
 import com.lyl.common.util.FileUtil;
+import com.lyl.web.base.Result.JsonResult;
 import com.lyl.web.entity.Article;
 import com.lyl.web.entity.Category;
 import com.lyl.web.entity.Picture;
 import com.lyl.web.service.ArticleService;
 import com.lyl.web.service.CategoryService;
 import com.lyl.web.service.PictureService;
+import com.lyl.web.util.JsonResultUtil;
 import com.lyl.web.vo.TimelineVO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -143,9 +146,9 @@ public class DispatchController {
         Picture newPicture = new Picture();
         try {
             if(multipartFile != null) {
-                image = FileUtil.uploadFile("file:D:/images/blog/", multipartFile);
+                image = FileUtil.uploadFile("D:\\images\\blog\\", multipartFile);
                 if(image != null){
-                    imageUrlForFront = "pic/blog/" + image.getName();
+                    imageUrlForFront = "pic/" + image.getName();
                 }
                 // 保存图片（路径）
                 if(imageUrlForFront != null && imageUrlForFront.length() > 0) {
@@ -175,5 +178,26 @@ public class DispatchController {
         return "redirect:/";
     }
 
-
+    @Transactional
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public JsonResult deleteArticle(Model model,
+                                    @RequestParam(value = "articleId") String articleId){
+        if(articleId == null || articleId.length() <= 0) {
+            return  JsonResultUtil.createJsonResult(false, null, "1", "文章删除失败！");
+        }
+        // 获取要删除的文章对象
+        Article deletingArticle = articleService.findArticleById(Integer.parseInt(articleId));
+        if(deletingArticle == null || deletingArticle.getPic_id() == null || deletingArticle.getPic_id() <= 0)
+            return JsonResultUtil.createJsonResult(false, null, "1", "文章删除失败！");
+        // 删除图片
+        Picture deletingPicture = pictureService.findPictureById(deletingArticle.getPic_id());
+        if(deletingPicture == null) return JsonResultUtil.createJsonResult(false, null, "1", "文章删除失败！");
+        String[] imagePathInfo = deletingPicture.getPic().split("/");
+        FileUtil.deleteFile("D:\\images\\blog\\" + imagePathInfo[1]);
+        pictureService.deletePictureById(deletingPicture.getPic_id());
+        // 删除文章
+        articleService.deleteArticleById(Integer.parseInt(articleId));
+        return JsonResultUtil.createJsonResult(true, null, "0", "文章删除成功！");
+    }
 }

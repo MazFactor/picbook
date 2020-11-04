@@ -20,4 +20,8 @@ public interface PictureService {
     void insertNewPicture(Picture newPicture);
 
     void clicksOfPicturePlusOne(Integer picId);
+
+    Picture findPictureById(Integer pic_id);
+
+    void deletePictureById(Integer pic_id);
 }

@@ -50,4 +50,14 @@ public class PictureServiceImpl implements PictureService {
     public void clicksOfPicturePlusOne(Integer picId) {
         pictureMapper.clicksOfPicturePlusOne(picId);
     }
+
+    @Override
+    public Picture findPictureById(Integer pic_id) {
+        return pictureMapper.findPictureById(pic_id);
+    }
+
+    @Override
+    public void deletePictureById(Integer pic_id) {
+        pictureMapper.deletePictureById(pic_id);
+    }
 }

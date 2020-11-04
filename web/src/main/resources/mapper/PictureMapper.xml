@@ -68,6 +68,7 @@
     <insert id="insertNewPicture" useGeneratedKeys="true" keyProperty="pic_id" parameterType="com.lyl.web.entity.Picture">
         insert into picture(pic, category_id) values(#{pic}, #{category_id})
     </insert>
+    <!-- 点击量加一 -->
     <update id="clicksOfPicturePlusOne" parameterType="java.lang.Integer">
         update picture set clicks = clicks + 1
         <where>
@@ -76,4 +77,13 @@
             </if>
         </where>
     </update>
+    <!-- 根据ID删除图片 -->
+    <delete id="deletePictureById" parameterType="java.lang.Integer">
+        delete from picture
+        <where>
+            <if test="_parameter != null">
+                pic_id = #{_parameter}
+            </if>
+        </where>
+    </delete>
 </mapper>
