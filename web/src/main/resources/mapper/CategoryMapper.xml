@@ -7,9 +7,20 @@
         <result column="create_time" jdbcType="VARCHAR" property="create_time" />
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
     </resultMap>
+    <!-- 查询所有分类 -->
     <select id="findAllCategories" resultMap="Base_Result_Map_Category">
-        select * from category limit 0,3
+        select * from category
     </select>
+    <!-- 根据ID查询分类 -->
+    <select id="findCategoryById" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Category">
+        select * from category
+        <where>
+            <if test="_parameter != null">
+                category_id = #{_parameter}
+            </if>
+        </where>
+    </select>
+    <!-- 根据名称查询分类 -->
     <select id="findCategoryByName" parameterType="java.lang.String" resultMap="Base_Result_Map_Category">
         select * from category
         <where>
@@ -18,6 +29,7 @@
             </if>
         </where>
     </select>
+    <!-- 新增分类 -->
     <insert id="insertNewCategory" useGeneratedKeys="true" keyProperty="category_id" parameterType="com.lyl.web.entity.Category">
         insert into category(category)
         values(#{category})

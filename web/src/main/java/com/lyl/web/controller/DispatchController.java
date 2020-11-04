@@ -108,10 +108,23 @@ public class DispatchController {
         return "pics";
     }
 
-    @RequestMapping(value = "/post")
+    @RequestMapping(value = "/add")
     public String testCropper(Model model, HttpServletRequest request) {
         SimpleDateFormat sdf = new SimpleDateFormat("M月 d, yyyy");
         model.addAttribute("nowDate", sdf.format(new Date()));
+        Article emptyArticle = new Article();
+        Picture emptyPicture = new Picture();
+        emptyPicture.setCategory_id(-1);
+        emptyPicture.setPic("");
+        emptyPicture.setClicks(0);
+        emptyPicture.setPic_id(-1);
+        emptyArticle.setPic_id(-1);
+        emptyArticle.setBrief("");
+        emptyArticle.setPicture(emptyPicture);
+        emptyArticle.setTitle("");
+        emptyArticle.setArticle_id(-1);
+        model.addAttribute("editingArticle", emptyArticle);
+        model.addAttribute("command", 1);
         return "post";
     }
 
@@ -199,5 +212,58 @@ public class DispatchController {
         // 删除文章
         articleService.deleteArticleById(Integer.parseInt(articleId));
         return JsonResultUtil.createJsonResult(true, null, "0", "文章删除成功！");
+    }
+
+    @RequestMapping(value = "/toEdit")
+    public String editArticle(Model model, HttpServletRequest request){
+        String articleId = request.getParameter("articleId");
+        if(articleId == null || articleId.length() <= 0) return  "error";
+        // 时间显示
+        SimpleDateFormat sdf = new SimpleDateFormat("M月 d, yyyy");
+        model.addAttribute("nowDate", sdf.format(new Date()));
+        Article editingArticle = articleService.findArticleById(Integer.parseInt(articleId));
+        if(editingArticle == null || editingArticle.getPicture() == null || editingArticle.getPicture().getCategory_id() == null) return "error";
+        Category editCategory = categoryService.findCategoryById(editingArticle.getPicture().getCategory_id());
+        if(editCategory == null) return "error";
+        model.addAttribute("editingArticle", editingArticle);
+        model.addAttribute("editCategory", editCategory);
+        model.addAttribute("command", 0);
+        return "post";
+    }
+
+    @RequestMapping(value = "/update")
+    public String updateArticle(Model model,
+                                @RequestParam(value = "title") String title,
+                                @RequestParam(value = "thematic") String img,
+                                @RequestParam(value = "brief") String brief,
+                                @RequestParam(value = "category") String category) {
+        if(title == null || title.length() <= 0 || img == null || img.length() <= 0) return "error";
+        // 判断是否需要新增分类，如果是则新增并获取新增分类ID；否则获取已存在分类ID
+        Integer targetCategoryId = checkCategoryExitByName(category);
+        if(categoryId == -1) return "error";
+        return "";
+    }
+
+    /**
+     *
+     * @param category
+     * @return
+     */
+    private Integer checkCategoryExitByName(String category) {
+        Category categoryExisted;
+        Integer categoryId = -1;
+        if(category != null && category.length() > 0) {
+            categoryExisted = categoryService.findCategoryByName(category);
+            if(categoryExisted == null) {
+                categoryExisted = new Category();
+                categoryExisted.setCategory(category);
+                categoryService.insertNewCategory(categoryExisted);
+            }
+            categoryId = categoryExisted.getCategory_id();
+        }else {
+            categoryId = 1;
+        }
+        if(categoryId == -1) return -1;
+        return categoryId;
     }
 }

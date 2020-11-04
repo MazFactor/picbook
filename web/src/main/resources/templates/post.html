@@ -67,7 +67,7 @@
                 <div class="mtime"><span th:text="${nowDate}">May 20, 2014</span></div>
                 <!--标题-->
                 <div class="title-container">
-                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（限50字）"></textarea>
+                    <textarea id="title" name="title" rows="1" class="Input" placeholder="请输入标题（限50字）" th:text="${editingArticle.title}"></textarea>
                 </div>
                 <!--题图上传-->
                 <input id="thematic" name="thematic" value="" type="hidden">
@@ -82,7 +82,7 @@
                                 </svg>
                             </label>
                         </div>
-                        <img src="" id="finalImg" style="display: none; width: 100%; height: 100%;" alt="">
+                        <img th:src="${editingArticle.picture.pic}" id="finalImg" style="display: none; width: 100%; height: 100%;" alt="">
                         <div id="writeCover-editWrapper" style="position: absolute; right: 0; bottom: 0; z-index: 1;  display:none">
                             <button title="更换" aria-label="更换" type="button" class="Button WriteCover-editButton WriteCover-uploadButton" id="changeImage">
                                 <!--<button title="更换" aria-label="更换" type="button" class="Button WriteCover-editButton WriteCover-uploadButton" id="changeImage">-->
@@ -148,7 +148,7 @@
                             ]
                         });
                     </script>
-                    <textarea id="brief" name="brief" class="content"></textarea>
+                    <textarea id="brief" name="brief" class="content" th:utext="${editingArticle.brief}"></textarea>
                 </div>
             </div>
         </div>
@@ -156,17 +156,18 @@
             <div class="pre-pic">
                 <h4>PHOTOSTRAM</h4>
                 <ul>
-                    <li><a href="javascript:void(0);"><img id="finalImg-pre" src="" width="32" height="32" alt="" ></a></li>
+                    <li><a href="javascript:void(0);"><img id="finalImg-pre" th:src="${editingArticle.picture.pic}" width="32" height="32" alt="" ></a></li>
                 </ul>
             </div>
             <div class="category-edit">
                 <h4>CATEGORIES</h4>
-                <input id="category" name="category" type="text" placeholder="输入分类（限10字）..." class="btn-category">
+                <input id="category" name="category" type="text" placeholder="输入分类（限10字）..." class="btn-category" th:value="${editCategory.category}">
             </div>
             <div class="submit-form">
                 <input type="button" id="btn-submit" class="btn-submit" value="Submit">
             </div>
         </div>
+        <input id="command" type="hidden" th:value="${command}">
     </form>
 </div>
 <!-- 图像上传 -->
@@ -208,6 +209,8 @@
 <!-- 发布文章 -->
 <script type="text/javascript">
     $("#btn-submit").click(function(){
+        // 获取指令
+        var command = $("#command").val();
         // 标题
         var title = $("#title").val();
         // 获取tinymce 编辑器中的纯文本内容
@@ -221,8 +224,13 @@
             alert("内容不能为空！");
             return false;
         }
-        // 提交
-        document.getElementById("sub-form").action = "publish";
+        // 判断指令并提交
+        if(command === 1)
+            document.getElementById("sub-form").action = "publish";
+        else if(command === 0)
+            document.getElementById("sub-form").action = "update";
+        else
+            return false;
         document.getElementById("sub-form").method = "post";
         document.getElementById("sub-form").submit();
         return false;

@@ -14,4 +14,6 @@ public interface CategoryMapper {
     Category findCategoryByName(String category);
 
     void insertNewCategory(Category categoryExisted);
+
+    Category findCategoryById(Integer category_id);
 }

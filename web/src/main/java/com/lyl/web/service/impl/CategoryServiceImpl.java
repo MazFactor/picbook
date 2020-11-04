@@ -28,4 +28,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void insertNewCategory(Category categoryExisted) {
         categoryMapper.insertNewCategory(categoryExisted);
     }
+
+    @Override
+    public Category findCategoryById(Integer category_id) {
+        return categoryMapper.findCategoryById(category_id);
+    }
 }

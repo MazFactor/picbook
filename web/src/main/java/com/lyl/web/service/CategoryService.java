@@ -10,4 +10,6 @@ public interface CategoryService {
     Category findCategoryByName(String category);
 
     void insertNewCategory(Category categoryExisted);
+
+    Category findCategoryById(Integer category_id);
 }

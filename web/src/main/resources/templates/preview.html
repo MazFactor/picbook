@@ -1,7 +1,7 @@
 <div class="preview" xmlns:th="http://www.w3.org/1999/xhtml">
     <input id="keep-pic-id" type="hidden" th:value="${article.picture.pic_id}">
     <div class="mtime"><span th:text="${#dates.format(article.create_time, 'M')}" style="color: #d59d62">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(article.create_time, 'd')}" style="color: #3fa3c9"></span> <span style="font-size: 14px;color:#000;">/</span> <span id="click-number" style="color: #b77cdd" th:text="${article.picture.clicks}"></span> <span style="color:#626363">Clicks</span></div>
-    <div class="top-title"><h2 th:text="${article.title}">STANDARD POST FORMAT</h2><div class="btn-article"><a href="edit">Edit</a><span style="margin: 0 2px;font-size:16px">|</span><a id="delArticle" href="delete">Delete</a></div></div>
+    <div class="top-title"><h2 th:text="${article.title}">STANDARD POST FORMAT</h2><div class="btn-article"><a id="editArticle" href="javascript:void(0)">Edit</a><span style="margin: 0 2px;font-size:16px">|</span><a id="delArticle" href="javascript:void(0)">Delete</a></div></div>
     <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
     <div class="brief" th:utext="${article.brief}">
         <p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>

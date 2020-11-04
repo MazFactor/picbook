@@ -12,7 +12,7 @@
         <association property="picture" javaType="com.lyl.web.entity.Picture" resultMap="com.lyl.web.mapper.PictureMapper.Base_Result_Map_Picture"/>
     </resultMap>
     <select id="findArticleByPicId" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Article">
-        select a.article_id,a.title,a.brief,a.create_time,a.modify_time, p.pic_id,p.pic,p.clicks,p.create_time,p.modify_time
+        select a.article_id,a.title,a.brief,a.create_time,a.modify_time, p.pic_id,p.pic,p.category_id,p.clicks,p.create_time,p.modify_time
         from article a inner join picture p on a.pic_id = p.pic_id
         <where>
             <if test="_parameter != null">
@@ -21,7 +21,7 @@
         </where>
     </select>
     <select id="findArticleById" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Article">
-        select a.article_id,a.title,a.brief,a.create_time,a.modify_time, p.pic_id,p.pic,p.clicks,p.create_time,p.modify_time
+        select a.article_id,a.title,a.brief,a.create_time,a.modify_time, p.pic_id,p.pic,p.clicks,p.category_id,p.create_time,p.modify_time
         from article a inner join picture p on a.pic_id = p.pic_id
         <where>
             <if test="_parameter != null">
