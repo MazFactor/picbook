@@ -18,4 +18,6 @@ public interface ArticleMapper extends Mapper{
     Article findArticleById(Integer articleId);
 
     void deleteArticleById(Integer articleId);
+
+    void updateArticle(Article newArticle);
 }

@@ -60,4 +60,9 @@ public class PictureServiceImpl implements PictureService {
     public void deletePictureById(Integer pic_id) {
         pictureMapper.deletePictureById(pic_id);
     }
+
+    @Override
+    public void deletePictureByName(String oldPictureSrc) {
+        pictureMapper.deletePictureByName(oldPictureSrc);
+    }
 }

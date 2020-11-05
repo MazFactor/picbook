@@ -43,7 +43,7 @@
 </select>
     <!-- 查询最新一张图片 -->
     <select id="findTheLatestPicture" resultMap="Base_Result_Map_Picture">
-        select * from picture order by create_time desc limit 0,1
+        select * from picture order by modify_time desc limit 0,1
     </select>
     <!-- 根据分类查询图片 -->
     <select id="findPicturesByCategoryId" parameterType="java.lang.Integer" resultMap="Base_Result_Map_Picture">
@@ -85,5 +85,8 @@
                 pic_id = #{_parameter}
             </if>
         </where>
+    </delete>
+    <delete id="deletePictureByName" parameterType="java.lang.String">
+        delete from picture where pic = #{_parameter}
     </delete>
 </mapper>

@@ -29,4 +29,6 @@ public interface PictureMapper {
     Picture findPictureById(Integer pic_id);
 
     void deletePictureById(Integer pic_id);
+
+    void deletePictureByName(String oldPictureSrc);
 }

@@ -14,6 +14,8 @@ import com.lyl.web.util.JsonResultUtil;
 import com.lyl.web.vo.TimelineVO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +34,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/")
 public class DispatchController {
+
+    private final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
     @Autowired
     private ArticleService articleService;
@@ -114,6 +119,7 @@ public class DispatchController {
         model.addAttribute("nowDate", sdf.format(new Date()));
         Article emptyArticle = new Article();
         Picture emptyPicture = new Picture();
+        Category emptyCategory = new Category();
         emptyPicture.setCategory_id(-1);
         emptyPicture.setPic("");
         emptyPicture.setClicks(0);
@@ -123,7 +129,10 @@ public class DispatchController {
         emptyArticle.setPicture(emptyPicture);
         emptyArticle.setTitle("");
         emptyArticle.setArticle_id(-1);
+        emptyCategory.setCategory("");
+        emptyCategory.setCategory_id(-1);
         model.addAttribute("editingArticle", emptyArticle);
+        model.addAttribute("editCategory", emptyCategory);
         model.addAttribute("command", 1);
         return "post";
     }
@@ -136,51 +145,17 @@ public class DispatchController {
                           @RequestParam(value = "brief") String brief,
                           @RequestParam(value = "category") String category){
         if(title == null || title.length() <= 0 || img == null || img.length() <= 0) return "error";
-        // 判断是否新增分类，如果是则新增并获取新增分类ID；否则获取已存在分类ID
-        Category categoryExisted;
-        Integer categoryId = -1;
-        if(category != null && category.length() > 0) {
-            categoryExisted = categoryService.findCategoryByName(category);
-            if(categoryExisted == null) {
-                categoryExisted = new Category();
-                categoryExisted.setCategory(category);
-                categoryService.insertNewCategory(categoryExisted);
-            }
-            categoryId = categoryExisted.getCategory_id();
-        }else {
-            categoryId = 1;
-        }
-        if(categoryId == -1) return "error";
+        // 判断是否需要新增分类，如果是则新增并获取新增分类ID；否则获取已存在分类ID
+        Integer targetCategoryId = checkCategoryExitByName(category);
+        if(targetCategoryId == -1) return "error";
         // 保存图片并获取新增图片ID
-        MultipartFile multipartFile = Base64Util.base64ToMultipart(img);
-        File image;
-        String imageUrlForFront = null;
-        Integer picId = -1;
-        Picture newPicture = new Picture();
-        try {
-            if(multipartFile != null) {
-                image = FileUtil.uploadFile("D:\\images\\blog\\", multipartFile);
-                if(image != null){
-                    imageUrlForFront = "pic/" + image.getName();
-                }
-                // 保存图片（路径）
-                if(imageUrlForFront != null && imageUrlForFront.length() > 0) {
-                    newPicture.setPic(imageUrlForFront);
-                    newPicture.setCategory_id(categoryId);
-                    pictureService.insertNewPicture(newPicture);
-                    picId = newPicture.getPic_id();
-                }
-            }
-        }catch (Exception e){
-            System.out.println("保存图片失败："+e.getMessage());
-            return "error";
-        }
-        if(picId == -1) return "error";
+        Picture newPicture = savePicture(img, targetCategoryId);
+        if(newPicture == null) return "error";
         // 保存文章
         Integer newArticleId = -1;
         Article newArticle = new Article();
         newArticle.setTitle(title);
-        newArticle.setPic_id(picId);
+        newArticle.setPic_id(newPicture.getPic_id());
         newArticle.setPicture(newPicture);
         Document doc = Jsoup.parse(brief);
         String bodyHtml = doc.body() != null ? doc.body().html() : brief;
@@ -231,23 +206,40 @@ public class DispatchController {
         return "post";
     }
 
+    @Transactional
     @RequestMapping(value = "/update")
     public String updateArticle(Model model,
+                                @RequestParam(value = "articleId") String articleId,
                                 @RequestParam(value = "title") String title,
+                                @RequestParam(value = "oldPictureSrc") String oldPictureSrc,
                                 @RequestParam(value = "thematic") String img,
                                 @RequestParam(value = "brief") String brief,
                                 @RequestParam(value = "category") String category) {
-        if(title == null || title.length() <= 0 || img == null || img.length() <= 0) return "error";
+        if(articleId == null || articleId.length() <= 0 || title == null || title.length() <= 0 || img == null || img.length() <= 0 || oldPictureSrc == null || oldPictureSrc.length() <= 0 || brief == null || brief.length() <= 0) return "error";
         // 判断是否需要新增分类，如果是则新增并获取新增分类ID；否则获取已存在分类ID
         Integer targetCategoryId = checkCategoryExitByName(category);
-        if(categoryId == -1) return "error";
-        return "";
+        if(targetCategoryId == -1) return "error";
+        // 删除原来的图片，保存新图片
+        String[] imagePathInfo = oldPictureSrc.split("/");
+        FileUtil.deleteFile("D:\\images\\blog\\" + imagePathInfo[1]);
+        pictureService.deletePictureByName(oldPictureSrc);
+        Picture newPicture = savePicture(img, targetCategoryId);
+        if(newPicture == null) return "error";
+        // 更新文章
+        Article newArticle = new Article();
+        newArticle.setArticle_id(Integer.parseInt(articleId));
+        newArticle.setTitle(title);
+        newArticle.setPicture(newPicture);
+        newArticle.setBrief(brief);
+        newArticle.setPic_id(newPicture.getPic_id());
+        articleService.updateArticle(newArticle);
+        return "redirect:/";
     }
 
     /**
-     *
-     * @param category
-     * @return
+     * 检查并更新分类
+     * @param category 分类名称
+     * @return -1：失败
      */
     private Integer checkCategoryExitByName(String category) {
         Category categoryExisted;
@@ -265,5 +257,37 @@ public class DispatchController {
         }
         if(categoryId == -1) return -1;
         return categoryId;
+    }
+
+    /**
+     * 保存图片
+     * @param img 图片base64字符串
+     * @param targetCategoryId 分类ID
+     * @return 图片
+     */
+    private Picture savePicture(String img, Integer targetCategoryId){
+        MultipartFile multipartFile = Base64Util.base64ToMultipart(img);
+        File image;
+        String imageUrlForFront = null;
+        Picture newPicture = null;
+        try {
+            if(multipartFile != null) {
+                image = FileUtil.uploadFile("D:\\images\\blog\\", multipartFile);
+                if(image != null){
+                    imageUrlForFront = "pic/" + image.getName();
+                }
+                // 保存图片（路径）
+                if(imageUrlForFront != null && imageUrlForFront.length() > 0) {
+                    newPicture = new Picture();
+                    newPicture.setPic(imageUrlForFront);
+                    newPicture.setCategory_id(targetCategoryId);
+                    pictureService.insertNewPicture(newPicture);
+                }
+            }
+        }catch (IOException e){
+            logger.error(e.getMessage());
+            return null;
+        }
+        return newPicture;
     }
 }

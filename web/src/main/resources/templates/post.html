@@ -167,7 +167,9 @@
                 <input type="button" id="btn-submit" class="btn-submit" value="Submit">
             </div>
         </div>
-        <input id="command" type="hidden" th:value="${command}">
+        <input id="articleId" name="articleId" type="hidden" th:value="${editingArticle.article_id}">
+        <input id="command" name="command" type="hidden" th:value="${command}">
+        <input id="oldPictureSrc" name="oldPictureSrc" type="hidden" th:value="${editingArticle.picture.pic}">
     </form>
 </div>
 <!-- 图像上传 -->
@@ -225,12 +227,14 @@
             return false;
         }
         // 判断指令并提交
-        if(command === 1)
+        if($.trim(command) === "1")
             document.getElementById("sub-form").action = "publish";
-        else if(command === 0)
+        else if($.trim(command) === "0")
             document.getElementById("sub-form").action = "update";
-        else
+        else {
+            $.alert("发生未知错误，请稍后再试！");
             return false;
+        }
         document.getElementById("sub-form").method = "post";
         document.getElementById("sub-form").submit();
         return false;

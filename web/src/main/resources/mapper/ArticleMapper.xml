@@ -40,4 +40,9 @@
             </if>
         </where>
     </delete>
+    <update id="updateArticle" parameterType="com.lyl.web.entity.Article">
+        update article
+        set title = #{title}, pic_id = #{pic_id}, brief = #{brief}, modify_time = now()
+        where article_id = #{article_id}
+    </update>
 </mapper>
