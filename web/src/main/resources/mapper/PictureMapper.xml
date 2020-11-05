@@ -34,11 +34,11 @@
     <!-- 查询时间线 -->
     <select id="findAllTimeline" resultType="com.lyl.web.vo.TimelineVO">
         select
-        DATE_FORMAT(create_time,'%d月，%Y') as timeString,count(*) as sumCoun
+        DATE_FORMAT(create_time,'%m月，%Y') as timeString,count(*) as sumCoun
         from picture
         where date_format(create_time,'%Y')=date_format(now(),'%Y')
-        GROUP BY  DATE_FORMAT(create_time,'%d月，%Y')
-        ORDER BY DATE_FORMAT(create_time,'%d月，%Y') desc
+        GROUP BY  DATE_FORMAT(create_time,'%m月，%Y')
+        ORDER BY DATE_FORMAT(create_time,'%m月，%Y') desc
         LIMIT 0,3
 </select>
     <!-- 查询最新一张图片 -->
@@ -86,6 +86,7 @@
             </if>
         </where>
     </delete>
+    <!-- 根据名称删除图片 -->
     <delete id="deletePictureByName" parameterType="java.lang.String">
         delete from picture where pic = #{_parameter}
     </delete>
