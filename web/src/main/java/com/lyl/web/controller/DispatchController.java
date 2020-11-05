@@ -1,6 +1,5 @@
 package com.lyl.web.controller;
 
-import com.github.tomakehurst.wiremock.common.Json;
 import com.lyl.common.util.Base64Util;
 import com.lyl.common.util.FileUtil;
 import com.lyl.web.base.Result.JsonResult;
@@ -24,19 +23,33 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 @Controller
 @RequestMapping(value = "/")
 public class DispatchController {
 
+    // 日志
     private final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
-
+    /**
+     * 配置文件
+     */
+    private static final Properties PROPERTIES = new Properties();
+    /**
+     * 加载配置信息
+     */
+    static {
+        try {
+            PROPERTIES.load(DispatchController.class.getClassLoader().getResourceAsStream("image-upload.properties"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     @Autowired
     private ArticleService articleService;
     @Autowired
@@ -182,7 +195,7 @@ public class DispatchController {
         Picture deletingPicture = pictureService.findPictureById(deletingArticle.getPic_id());
         if(deletingPicture == null) return JsonResultUtil.createJsonResult(false, null, "1", "文章删除失败！");
         String[] imagePathInfo = deletingPicture.getPic().split("/");
-        FileUtil.deleteFile("D:\\images\\blog\\" + imagePathInfo[1]);
+        FileUtil.deleteFile(PROPERTIES.getProperty("web.image.uploadPath") + imagePathInfo[1]);
         pictureService.deletePictureById(deletingPicture.getPic_id());
         // 删除文章
         articleService.deleteArticleById(Integer.parseInt(articleId));
@@ -221,7 +234,7 @@ public class DispatchController {
         if(targetCategoryId == -1) return "error";
         // 删除原来的图片，保存新图片
         String[] imagePathInfo = oldPictureSrc.split("/");
-        FileUtil.deleteFile("D:\\images\\blog\\" + imagePathInfo[1]);
+        FileUtil.deleteFile(PROPERTIES.getProperty("web.image.uploadPath") + imagePathInfo[1]);
         pictureService.deletePictureByName(oldPictureSrc);
         Picture newPicture = savePicture(img, targetCategoryId);
         if(newPicture == null) return "error";
@@ -272,7 +285,7 @@ public class DispatchController {
         Picture newPicture = null;
         try {
             if(multipartFile != null) {
-                image = FileUtil.uploadFile("D:\\images\\blog\\", multipartFile);
+                image = FileUtil.uploadFile(PROPERTIES.getProperty("web.image.uploadPath"), multipartFile);
                 if(image != null){
                     imageUrlForFront = "pic/" + image.getName();
                 }
