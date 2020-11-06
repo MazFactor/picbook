@@ -5,7 +5,7 @@
         <id column="article_id" jdbcType="BIGINT" property="article_id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="pic_id" jdbcType="BIGINT" property="pic_id" />
-        <result column="brief" jdbcType="TIMESTAMP" property="brief" />
+        <result column="brief" jdbcType="VARCHAR" property="brief" />
         <result column="create_time" jdbcType="VARCHAR" property="create_time" />
         <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
         <!-- 一对一关联：单向。方式三：使用resultMap引用。注意的是column名称必须与关联表select时的一致（需要修改关联表的select，所以更建议使用select引用方式（见下） -->

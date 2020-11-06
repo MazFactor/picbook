@@ -3,9 +3,11 @@ package com.lyl.web.controller;
 import com.lyl.common.util.Base64Util;
 import com.lyl.common.util.FileUtil;
 import com.lyl.web.base.Result.JsonResult;
+import com.lyl.web.entity.Account;
 import com.lyl.web.entity.Article;
 import com.lyl.web.entity.Category;
 import com.lyl.web.entity.Picture;
+import com.lyl.web.service.AccountService;
 import com.lyl.web.service.ArticleService;
 import com.lyl.web.service.CategoryService;
 import com.lyl.web.service.PictureService;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -56,9 +59,55 @@ public class DispatchController {
     private PictureService pictureService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private AccountService accountService;
+    private Account current_account;
 
     @RequestMapping(value = "/")
-    public String redirectIndex(Model model){
+    public String loginPage(Model model){
+        // 时间显示
+        model.addAttribute("nowDate", new Date());
+        // 星期几
+        Calendar calendar = Calendar.getInstance();
+        switch (calendar.get(Calendar.DAY_OF_WEEK)){
+            case 1:
+                model.addAttribute("weekDay", "星期日");
+                break;
+            case 2:
+                model.addAttribute("weekDay", "星期一");
+                break;
+            case 3:
+                model.addAttribute("weekDay", "星期二");
+                break;
+            case 4:
+                model.addAttribute("weekDay", "星期三");
+                break;
+            case 5:
+                model.addAttribute("weekDay", "星期四");
+                break;
+            case 6:
+                model.addAttribute("weekDay", "星期五");
+                break;
+            case 7:
+                model.addAttribute("weekDay", "星期六");
+                break;
+        }
+        return "index";
+    }
+
+    @RequestMapping(value = "/login")
+    public String login(Model model,
+                        @RequestParam(value = "account") String account,
+                        @RequestParam(value = "password") String password) {
+        if(account == null || account.length() <= 0 || password == null || password.length() <= 0) return "error";
+        // 查询账户
+        current_account = accountService.findAccountByAccountAndPassword(account, password);
+        if(current_account == null) return "error";
+        return "redirect:/secondary";
+    }
+    @RequestMapping(value = "/secondary")
+    public String redirectSecondary(Model model){
+        if(current_account == null) return "redirect:/";
         // 查询最近上传的图片的ID
         Picture picture = pictureService.findTheLatestPicture();
         if(picture == null) return "error";
@@ -78,7 +127,7 @@ public class DispatchController {
         List<TimelineVO> timelineVOList = pictureService.findAllTimeline();
         if(timelineVOList == null || timelineVOList.size() <=0 ) return "error";
         model.addAttribute("timeline", timelineVOList);
-        return "index";
+        return "article";
     }
 
     /**

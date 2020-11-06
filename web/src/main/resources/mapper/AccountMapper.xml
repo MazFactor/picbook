@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyl.web.mapper.AccountMapper">
+    <resultMap id="Base_Result_Map_Account" type="com.lyl.web.entity.Account">
+        <id column="account_id" jdbcType="BIGINT" property="account_id" />
+        <result column="account" jdbcType="VARCHAR" property="account" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="create_time" jdbcType="VARCHAR" property="create_time" />
+        <result column="modify_time" jdbcType="VARCHAR" property="modify_time" />
+    </resultMap>
+    <select id="findAccountByAccountAndPassword" parameterType="java.lang.String" resultMap="Base_Result_Map_Account">
+        select * from account
+        <where>
+            <if test="#{account} != null and #{password} != null">
+                account = #{account} and password = #{password}
+            </if>
+        </where>
+    </select>
+</mapper>

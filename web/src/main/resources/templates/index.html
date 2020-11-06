@@ -4,155 +4,67 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <link rel="stylesheet" href="stylesheets/style.css">
-    <link rel="stylesheet" href="modules/jqueryConfirm/css/jquery-confirm.css">
+    <link rel="stylesheet" href="stylesheets/jquery-confirm.css">
     <script src="scripts/jquery.min.js"></script>
-    <script src="modules/jqueryConfirm/js/jquery-confirm.js"></script>
-    <style>
-        .container{
-            width:360px;
-            margin:0 auto;
-        }
-    </style>
+    <script src="scripts/jquery-confirm.js"></script>
 </head>
 <body>
-<div class="wrapper">
-    <div id="preview_container">
-    <div class="preview">
-        <input id="keep-pic-id" type="hidden" th:value="${article.picture.pic_id}">
-        <input id="keep-article-id" type="hidden" th:value="${article.article_id}">
-        <div class="mtime"><span th:text="${#dates.format(article.create_time, 'M')}" style="color: #d59d62">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(article.create_time, 'd')}" style="color: #3fa3c9"></span> <span style="font-size: 14px;color:#000;">/</span> <span id="click-number" style="color: #b77cdd" th:text="${article.picture.clicks}"></span> <span style="color:#626363">Clicks</span></div>
-        <div class="top-title"><h2 th:text="${article.title}">STANDARD POST FORMAT</h2><div class="btn-article"><a th:href="@{/toEdit(articleId=${article.article_id})}">Edit</a><span style="margin: 0 2px;font-size:16px">|</span><a id="delArticle" href="javascript:void(0)">Delete</a></div></div>
-        <div class="large-pic"><img th:src="${article.picture.pic}" alt="" width="100%"></div>
-        <div class="brief" th:utext="${article.brief}">
-            <p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>
-        </div>
-    </div>
-    </div>
-    <div class="list">
-        <!--<input type="text" placeholder="Search..." class="btn-search">-->
-        <a href="add" class="post-link">Post Another Pic</a>
-        <div id="pic_container">
-            <div class="pic" th:if="not ${#lists.isEmpty(pictures)}">
-                <h4>PHOTOSTRAM</h4>
-                <ul>
-                    <li th:each="picture, index : ${pictures}"><a href="javascript:void(0);" th:onclick="toPic([[${picture.pic_id}]])"><img th:src="${picture.pic}" width="32" height="32" alt="" ></a></li>
-                </ul>
+<div class="welcome">
+    <div id="login_container">
+        <form id="login-form" action="">
+            <div class="login">
+                <div class="mtime"><span th:text="${#dates.format(nowDate, 'M')}" style="color: #d59d62">May 20, 2014</span><span>月 </span><span th:text="${#dates.format(nowDate, 'd')}" style="color: #3fa3c9"></span> 日 <span class="year" th:text="${#dates.format(nowDate, 'y')}"></span>，<span class="weekDay" th:text="${weekDay}"></span></div>
+                <!--<div class="some-words"><h2>You are having a good day!</h2></div>-->
+                <div class="user-info">
+                    <ul>
+                        <li><label for="account"><input id="account" name="account" class="account" type="text" autocomplete="off"></label></li>
+                        <li><label for="password"><input id="password" name="password" class="password" type="password"></label></li>
+                        <li><button id="btn-submit" class="btn-submit" type="submit">LOGIN</button></li>
+                    </ul>
+                </div>
+                <!--<div class="brief" th:utext="${article.brief}">-->
+                    <!--<p>Class aptent taciti ad litora torquent conubia nostra,per inceptos himenaoes.Sed moiestie augue sit amet leo consequat posuere.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilla Curae.Proin vet ante a orci tempus eleifend ut et magna.</p>-->
+                <!--</div>-->
             </div>
-        </div>
-        <div class="category" th:if="not ${#lists.isEmpty(categories)}">
-            <h4>CATEGORIES</h4>
-            <ul>
-                <li th:each="category, index : ${categories}"><a href="javascript:void(0);" th:text="${category.category}" th:onclick="toCategory([[${category.category_id}]])"></a></li>
-            </ul>
-        </div>
-        <div class="timeline" th:if="not ${#lists.isEmpty(timeline)}">
-            <h4>Timeline</h4>
-            <ul>
-                <li th:each="item, index : ${timeline}"><a href="javascript:void(0);" th:text="${item.timeString}" th:onclick="toTimeline([[${item.timeString}]])"></a><span>（[[${item.sumCoun}]]）</span></li>
-            </ul>
-        </div>
+        </form>
     </div>
 </div>
-<!-- 页面局部刷新 -->
 <script type="application/javascript">
-    // 点击图片刷新文章
-    function toPic(pic_id) {
-        var prior_pic_id = $("#keep-pic-id").val();
-        //发出POST请求
-        $.ajax({
-            url:"/picture",
-            data: {picId:pic_id,prior_pic_id:prior_pic_id},
-            type: "POST",
-            dataType: 'text',
-            success: function (data) {
-                $("#preview_container").html(data);
-            },
-            error:function (e) {
-                alert("获取信息失败，请稍后重试！");
-            }
-        });
-    }
-    // 点击分类刷新图片列表
-    function toCategory(category_id) {
-        //发出POST请求
-        $.ajax({
-            url:"/category",
-            data: {categoryId:category_id},
-            type: "POST",
-            dataType: 'text',
-            success: function (data) {
-                $("#pic_container").html(data);
-            },
-            error:function (e) {
-                alert("获取信息失败，请稍后重试！");
-            }
-        });
-    }
-    // 点击时间线刷新图片列表
-    function toTimeline(timeString) {
-        //发出POST请求
-        $.ajax({
-            url:"/timeline",
-            data: {timeString:timeString},
-            type: "POST",
-            dataType: 'text',
-            success: function (data) {
-                $("#pic_container").html(data);
-            },
-            error:function (e) {
-                alert("获取信息失败，请稍后重试！");
-            }
-        });
-    }
-    // 绑定删除操作
-    $("#delArticle").confirm({
-        title: '删除',
-        content: 'Are you sure you want to delete this article?',
-        confirmButton: '确定',
-        cancelButton: '取消',
-        confirm: function(){
-            var articleId = $("#keep-article-id").val();
-            if(articleId === null || articleId.length <= 0) {
-                $.alert("发生错误，请稍后重试！");
-                return;
-            }
-            //发出POST请求
-            $.ajax({
-                url:"/delete",
-                data: {articleId:articleId},
-                type: "POST",
-                dataType: 'text',
-                success: function (data) {
-                    var result = JSON.parse(data);
-                    if(result.code === 0) {
-                        // $.alert(result.message);
-                        location.href = "/";
-                    }
-                },
-                error:function (e) {
-                    alert("发生异常，请稍后重试！");
-                }
-            });
-        },
-        cancel: function(){
-        }
-    });
-    // 绑定编辑操作
-    $("#editArticle").on("click", function () {
-        var articleId = $("#keep-article-id").val();
-        if(articleId === null || articleId.length <= 0){
-            $.alert("发生错误，请稍后重试！");
-            return;
-        }
-        alert(123);
-        $.ajax({
-            url:"/toEdit",
-            data:{articleId:articleId},
-            type:"POST",
-            dataType:"text"
+    $(document).ready(function(){
 
-        });
-    })
+        $("#account").focus();
+
+    });
+    $("#btn-submit").click(function(){
+        // user account
+        var account = $("#account").val();
+        // user password
+        var password = $("#password").val();
+        // 标题、文章内容非空校验
+        if (Trim(account).length === 0) {
+            alert("账号不能为空！");
+            return false;
+        }
+        if (Trim(password).length === 0) {
+            alert("密码不能为空！");
+            return false;
+        }
+        // 判断指令并提交
+        document.getElementById("login-form").action = "login";
+        document.getElementById("login-form").method = "post";
+        document.getElementById("login-form").submit();
+        return false;
+    });
+    /**
+     * 过滤字符串去掉标签和空格
+     * @param str
+     * @returns {string}
+     * @constructor
+     */
+    function Trim(str) {
+        var newStr = str.replace(/<[^>]+>/g, "");//去掉所有的html标记
+        return (newStr.replace(/&nbsp;/g, "")).trim(); //去掉所有的&nbsp;
+    }
 </script>
 </body>
 </html>
