@@ -65,6 +65,7 @@ public class DispatchController {
 
     @RequestMapping(value = "/")
     public String loginPage(Model model){
+        if(current_account != null) return "redirect:/secondary";
         // 时间显示
         model.addAttribute("nowDate", new Date());
         // 星期几
