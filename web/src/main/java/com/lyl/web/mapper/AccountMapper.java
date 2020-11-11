@@ -8,4 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface AccountMapper {
     Account findAccountByAccountAndPassword(String account, String password);
+
+    Account findAccountByName(String userName);
 }

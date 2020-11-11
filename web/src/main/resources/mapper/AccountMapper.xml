@@ -16,4 +16,12 @@
             </if>
         </where>
     </select>
+    <select id="findAccountByName" parameterType="java.lang.String" resultMap="Base_Result_Map_Account">
+        select * from account
+        <where>
+            <if test="#{_parameter} != null">
+                account = #{_parameter}
+            </if>
+        </where>
+    </select>
 </mapper>

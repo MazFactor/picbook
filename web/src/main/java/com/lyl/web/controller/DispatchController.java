@@ -65,7 +65,6 @@ public class DispatchController {
 
     @RequestMapping(value = "/")
     public String loginPage(Model model){
-        if(current_account != null) return "redirect:/secondary";
         // 时间显示
         model.addAttribute("nowDate", new Date());
         // 星期几
@@ -108,7 +107,7 @@ public class DispatchController {
     }
     @RequestMapping(value = "/secondary")
     public String redirectSecondary(Model model){
-        if(current_account == null) return "redirect:/";
+//        if(current_account == null) return "redirect:/";
         // 查询最近上传的图片的ID
         Picture picture = pictureService.findTheLatestPicture();
         if(picture == null) return "error";

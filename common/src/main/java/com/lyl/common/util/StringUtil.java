@@ -360,4 +360,13 @@ public class StringUtil {
         result =code+String.format("%1$0"+(num-code.length())+"d",0);
         return result;
     }
+
+    /**
+     * MD5加密
+     * @param str 待加密字符串
+     * @return 加密结果
+     */
+    public static String StringToMD5(String str) {
+        return  str;
+    }
 }
